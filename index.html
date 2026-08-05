@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape Room</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/room.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <h1>ESCAPE ROOM</h1>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Main Menu -->
+    <section id="mainMenu" class="hidden">
+
+        <h1>ESCAPE ROOM</h1>
+
+        <button id="startBtn">
+            Start Game
+        </button>
+
+        <button id="continueBtn">
+            Continue
+        </button>
+
+        <button id="leaderboardBtn">
+            Leaderboard
+        </button>
+
+        <button id="settingsBtn">
+            Settings
+        </button>
+
+    </section>
+
+    <!-- HUD -->
+    <header id="hud" class="hidden">
+
+        <div class="hudBox">
+            ⏳
+            <span id="timer">
+                15:00
+            </span>
+        </div>
+
+        <div class="hudBox">
+            💡
+            <span id="hints">
+                3
+            </span>
+        </div>
+
+        <div class="hudBox">
+            ⭐
+            <span id="score">
+                0
+            </span>
+        </div>
+
+    </header>
+
+    <!-- Room -->
+    <main id="room" class="hidden">
+
+        <img
+            id="roomImage"
+            src="assets/images/rooms/lab.jpg"
+            alt="Room">
+
+        <!-- Clickable Objects -->
+        <div id="objects">
+
+            <div class="object key" id="objKey"></div>
+
+            <div class="object note" id="objNote"></div>
+
+            <div class="object keypad" id="objKeypad"></div>
+
+            <div class="object door" id="objDoor"></div>
+
+        </div>
+
+    </main>
+
+    <!-- Inventory -->
+    <aside id="inventory" class="hidden">
+
+        <h2>Inventory</h2>
+
+        <div id="inventoryItems">
+
+        </div>
+
+    </aside>
+
+    <!-- Puzzle Popup -->
+    <div id="puzzleModal" class="hidden">
+
+        <div class="modalContent">
+
+            <h2 id="puzzleTitle">
+                Puzzle
+            </h2>
+
+            <div id="puzzleBody">
+
+            </div>
+
+            <button id="submitPuzzle">
+                Submit
+            </button>
+
+            <button id="closePuzzle">
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Win Screen -->
+    <section id="winScreen" class="hidden">
+
+        <h1>
+            🎉 You Escaped!
+        </h1>
+
+        <p id="finalScore">
+            Score : 0
+        </p>
+
+        <button id="playAgain">
+            Play Again
+        </button>
+
+    </section>
+
+    <!-- Game Over -->
+    <section id="gameOver" class="hidden">
+
+        <h1>
+            Time's Up!
+        </h1>
+
+        <button id="restart">
+            Restart
+        </button>
+
+    </section>
+
+    <!-- Audio -->
+    <audio
+        id="bgMusic"
+        loop>
+        <source src="assets/audio/bgm/theme.mp3">
+    </audio>
+
+    <audio id="clickSound">
+        <source src="assets/audio/sfx/click.mp3">
+    </audio>
+
+    <audio id="unlockSound">
+        <source src="assets/audio/sfx/unlock.mp3">
+    </audio>
+
+    <script src="js/timer.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/roomGenerator.js"></script>
+    <script src="js/puzzleManager.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
