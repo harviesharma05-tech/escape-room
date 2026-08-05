@@ -86,9 +86,13 @@ const SaveManager = {
         PuzzleManager.currentPuzzle = data.puzzle;
 
         // Restore Game State
-        hasKey = data.hasKey;
-        hasNote = data.hasNote;
-        gameWon = data.gameWon;
+       progress: GameState.progress,
+
+       player: GameState.player,
+
+      timer: GameState.timer,
+
+      inventory: GameState.inventory
 
         console.log("Game Loaded");
 
