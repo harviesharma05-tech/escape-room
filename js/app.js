@@ -2,113 +2,613 @@
    ESCAPE ROOM - APP.JS
 ========================================== */
 
-const Game = {
 
-    started: false,
-    score: 0,
-    hints: 3,
-    time: 900,
+const App = {
 
-    init() {
 
-        console.log("Escape Room Initialized");
 
-        this.bindEvents();
+started:false,
 
-        this.showLoading();
 
-    },
 
-    showLoading() {
 
-        const loading = document.getElementById("loadingScreen");
+// ==================================
+// INITIALIZE
+// ==================================
 
-        setTimeout(() => {
 
-            loading.classList.add("hidden");
+init(){
 
-            document
-                .getElementById("mainMenu")
-                .classList.remove("hidden");
 
-        }, 2000);
+console.log(
+"Escape Room Loading..."
+);
 
-    },
 
-    bindEvents() {
 
-        const start = document.getElementById("startBtn");
+this.bindEvents();
 
-        if (start) {
 
-            start.addEventListener("click", () => {
 
-                this.startGame();
+this.showLoading();
 
-            });
 
-        }
 
-        const restart = document.getElementById("restart");
+},
 
-        if (restart) {
 
-            restart.addEventListener("click", () => {
 
-                location.reload();
 
-            });
 
-        }
+// ==================================
+// LOADING SCREEN
+// ==================================
 
-        const playAgain = document.getElementById("playAgain");
 
-        if (playAgain) {
+showLoading(){
 
-            playAgain.addEventListener("click", () => {
 
-                location.reload();
 
-            });
+const loading=
 
-        }
+document.getElementById(
+"loadingScreen"
+);
 
-    },
 
-    startGame() {
 
-        this.started = true;
+setTimeout(()=>{
 
-        document
-            .getElementById("mainMenu")
-            .classList.add("hidden");
 
-        document
-            .getElementById("room")
-            .classList.remove("hidden");
 
-        document
-            .getElementById("hud")
-            .classList.remove("hidden");
+if(loading)
 
-        document
-            .getElementById("inventory")
-            .classList.remove("hidden");
+loading.classList.add(
+"hidden"
+);
 
-        if (typeof startTimer === "function") {
 
-            startTimer();
 
-        }
 
-        console.log("Game Started");
+const menu=
 
-    }
+document.getElementById(
+"mainMenu"
+);
+
+
+
+if(menu)
+
+menu.classList.remove(
+"hidden"
+);
+
+
+
+},2000);
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// EVENTS
+// ==================================
+
+
+bindEvents(){
+
+
+
+const start=
+
+document.getElementById(
+"startBtn"
+);
+
+
+
+if(start){
+
+
+
+start.onclick=()=>{
+
+
+this.startGame();
+
 
 };
 
-document.addEventListener("DOMContentLoaded", () => {
 
-    Game.init();
+
+}
+
+
+
+
+
+
+const continueBtn=
+
+document.getElementById(
+"continueBtn"
+);
+
+
+
+if(continueBtn){
+
+
+
+continueBtn.onclick=()=>{
+
+
+this.continueGame();
+
+
+
+};
+
+
+
+}
+
+
+
+
+
+
+const leaderboardBtn=
+
+document.getElementById(
+"leaderboardBtn"
+);
+
+
+
+if(leaderboardBtn){
+
+
+
+leaderboardBtn.onclick=()=>{
+
+
+this.openLeaderboard();
+
+
+};
+
+
+
+}
+
+
+
+
+
+
+const settingsBtn=
+
+document.getElementById(
+"settingsBtn"
+);
+
+
+
+if(settingsBtn){
+
+
+
+settingsBtn.onclick=()=>{
+
+
+this.openSettings();
+
+
+};
+
+
+
+}
+
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// START NEW GAME
+// ==================================
+
+
+startGame(){
+
+
+
+console.log(
+"Starting New Game"
+);
+
+
+
+GameState.reset();
+
+
+
+GameState.started=true;
+
+
+
+this.started=true;
+
+
+
+this.openGame();
+
+
+
+RoomGenerator.generate();
+
+
+
+startTimer();
+
+
+
+AudioManager.playMusic();
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// CONTINUE GAME
+// ==================================
+
+
+continueGame(){
+
+
+
+const loaded=
+
+SaveManager.load();
+
+
+
+
+if(!loaded){
+
+
+showMessage(
+"No Save Found",
+"error"
+);
+
+
+return;
+
+
+}
+
+
+
+
+GameState.started=true;
+
+
+
+this.started=true;
+
+
+
+this.openGame();
+
+
+
+startTimer();
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// OPEN GAME SCREEN
+// ==================================
+
+
+openGame(){
+
+
+
+document
+.getElementById(
+"mainMenu"
+)
+.classList.add(
+"hidden"
+);
+
+
+
+
+document
+.getElementById(
+"room"
+)
+.classList.remove(
+"hidden"
+);
+
+
+
+
+document
+.getElementById(
+"hud"
+)
+.classList.remove(
+"hidden"
+);
+
+
+
+
+document
+.getElementById(
+"inventory"
+)
+.classList.remove(
+"hidden"
+);
+
+
+
+},
+
+
+
+
+
+
+
+// ==================================
+// LEADERBOARD
+// ==================================
+
+
+openLeaderboard(){
+
+
+
+const screen=
+
+document.getElementById(
+"leaderboardScreen"
+);
+
+
+
+if(screen)
+
+screen.classList.remove(
+"hidden"
+);
+
+
+
+const body=
+
+document.getElementById(
+"leaderboardBody"
+);
+
+
+
+if(!body)
+return;
+
+
+
+body.innerHTML="";
+
+
+
+Leaderboard.get()
+.forEach(
+
+(score,index)=>{
+
+
+
+body.innerHTML+=`
+
+<tr>
+
+<td>
+${index+1}
+</td>
+
+
+<td>
+${score.name}
+</td>
+
+
+<td>
+${score.score}
+</td>
+
+
+<td>
+${score.time}
+</td>
+
+
+</tr>
+
+`;
+
+
+
+}
+
+
+
+);
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// SETTINGS
+// ==================================
+
+
+openSettings(){
+
+
+
+const panel=
+
+document.getElementById(
+"settingsPanel"
+);
+
+
+
+if(panel)
+
+panel.classList.remove(
+"hidden"
+);
+
+
+
+},
+
+
+
+
+};
+
+
+
+
+
+
+// ==================================
+// CLOSE BUTTONS
+// ==================================
+
+
+document.addEventListener(
+"DOMContentLoaded",
+
+()=>{
+
+
+
+App.init();
+
+
+
+
+const closeLeaderboard=
+
+document.getElementById(
+"closeLeaderboard"
+);
+
+
+
+if(closeLeaderboard){
+
+
+closeLeaderboard.onclick=()=>{
+
+
+document
+.getElementById(
+"leaderboardScreen"
+)
+.classList.add(
+"hidden"
+);
+
+
+
+};
+
+
+
+}
+
+
+
+
+
+
+const closeSettings=
+
+document.getElementById(
+"closeSettings"
+);
+
+
+
+if(closeSettings){
+
+
+
+closeSettings.onclick=()=>{
+
+
+document
+.getElementById(
+"settingsPanel"
+)
+.classList.add(
+"hidden"
+);
+
+
+
+};
+
+
+
+}
+
+
+
 
 });
