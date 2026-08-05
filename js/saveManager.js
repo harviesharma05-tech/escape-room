@@ -1,129 +1,153 @@
 /* ==========================================
-   ESCAPE ROOM - SAVEMANAGER.JS
+   ESCAPE ROOM - SAVE MANAGER
 ========================================== */
 
-const SaveManager = {
 
-    saveKey: "EscapeRoom_Save",
+const SaveManager={
 
-    // ==========================
-    // Save Game
-    // ==========================
 
-    save() {
+key:"EscapeRoom_Save",
 
-        const data = {
 
-            time: totalTime,
 
-            inventory: Inventory.items,
+save(){
 
-            currentRoom: RoomGenerator.currentRoom,
 
-            puzzle: PuzzleManager.currentPuzzle,
+    const data={
 
-            hasKey: hasKey,
 
-            hasNote: hasNote,
+        state:GameState,
 
-            gameWon: gameWon
 
-        };
+        inventory:Inventory.items,
 
-        localStorage.setItem(
 
-            this.saveKey,
+        room:RoomGenerator.currentRoom
 
-            JSON.stringify(data)
 
-        );
 
-        console.log("Game Saved");
+    };
 
-    },
 
-    // ==========================
-    // Load Game
-    // ==========================
 
-    load() {
+    localStorage.setItem(
 
-        const save = localStorage.getItem(this.saveKey);
+        this.key,
 
-        if (!save) {
+        JSON.stringify(data)
 
-            console.log("No Save Found");
+    );
 
-            return false;
 
-        }
+    console.log("Saved");
 
-        const data = JSON.parse(save);
+},
 
-        // Restore Timer
-        totalTime = data.time;
 
-        if (typeof updateTimer === "function") {
 
-            updateTimer();
 
-        }
+load(){
 
-        // Restore Inventory
-        Inventory.items = data.inventory || [];
-        Inventory.render();
 
-        // Restore Room
-        RoomGenerator.currentRoom = data.currentRoom;
 
-        if (RoomGenerator.currentRoom) {
+    const save=
 
-            RoomGenerator.load();
+    localStorage.getItem(this.key);
 
-        }
 
-        // Restore Puzzle
-        PuzzleManager.currentPuzzle = data.puzzle;
 
-        // Restore Game State
-       progress: GameState.progress,
+    if(!save)
 
-       player: GameState.player,
+        return false;
 
-      timer: GameState.timer,
 
-      inventory: GameState.inventory
 
-        console.log("Game Loaded");
+    const data=
 
-        return true;
+    JSON.parse(save);
 
-    },
 
-    // ==========================
-    // Delete Save
-    // ==========================
 
-    clear() {
 
-        localStorage.removeItem(this.saveKey);
+    Object.assign(
 
-        console.log("Save Deleted");
+        GameState,
 
-    }
+        data.state
+
+    );
+
+
+
+    Inventory.load(
+
+        data.inventory
+
+    );
+
+
+
+    RoomGenerator.currentRoom=
+
+    data.room;
+
+
+
+    if(RoomGenerator.currentRoom)
+
+        RoomGenerator.load();
+
+
+
+
+    updateTimer();
+
+
+
+    console.log("Loaded");
+
+
+    return true;
+
+
+
+},
+
+
+
+
+clear(){
+
+
+    localStorage.removeItem(
+
+        this.key
+
+    );
+
+
+}
+
+
 
 };
 
-/* ==========================================
-   AUTO SAVE
-========================================== */
 
-setInterval(() => {
 
-    if (typeof Game !== "undefined" && Game.started) {
+
+// Auto Save
+
+setInterval(()=>{
+
+
+    if(GameState.started){
+
 
         SaveManager.save();
 
+
     }
 
-}, 30000); // Save every 30 seconds
+
+
+},30000);
