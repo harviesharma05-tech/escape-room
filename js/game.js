@@ -2,204 +2,349 @@
    ESCAPE ROOM - GAME.JS
 ========================================== */
 
-// -----------------------------
-// Game State
-// -----------------------------
 
-let hasKey = false;
-let hasNote = false;
-let gameWon = false;
+document.addEventListener("DOMContentLoaded",()=>{
 
-// -----------------------------
-// DOM Elements
-// -----------------------------
 
-const key = document.getElementById("objKey");
-const note = document.getElementById("objNote");
-const keypad = document.getElementById("objKeypad");
-const door = document.getElementById("objDoor");
+const key =
+document.getElementById("objKey");
 
-const room = document.getElementById("room");
-const hud = document.getElementById("hud");
-const inventory = document.getElementById("inventory");
 
-const puzzleModal = document.getElementById("puzzleModal");
+const note =
+document.getElementById("objNote");
 
-const closePuzzle =
-    document.getElementById("closePuzzle");
 
-const finalScore =
-    document.getElementById("finalScore");
+const keypad =
+document.getElementById("objKeypad");
 
-// =====================================
-// KEY
-// =====================================
 
-if (key) {
+const door =
+document.getElementById("objDoor");
 
-    key.addEventListener("click", () => {
 
-        if (hasKey) return;
 
-        GameState.progress.hasKey = true;
 
-        key.classList.add("found");
+// ===============================
+// PICKUP KEY
+// ===============================
 
-        addItem("key");
 
-        alert("🔑 Golden Key Collected!");
+if(key){
 
-    });
+key.onclick=()=>{
+
+
+    if(GameState.progress.hasKey)
+        return;
+
+
+
+    GameState.progress.hasKey=true;
+
+
+    addItem("key");
+
+
+
+    key.classList.add("itemFound");
+
+
+
+    AudioManager.play("pickup");
+
+
+
+    showMessage(
+        "🔑 Golden Key Found!"
+    );
+
+
+};
 
 }
 
-// =====================================
-// NOTE
-// =====================================
 
-if (note) {
 
-    note.addEventListener("click", () => {
+// ===============================
+// PICKUP NOTE
+// ===============================
 
-        if (hasNote) return;
 
-        GameState.progress.hasNote = true;
+if(note){
 
-        note.classList.add("found");
+note.onclick=()=>{
 
-        addItem("note");
 
-        alert(
-            "📜 Secret Note:\nThe keypad contains the answer..."
+    if(GameState.progress.hasNote)
+        return;
+
+
+
+    GameState.progress.hasNote=true;
+
+
+
+    addItem("note");
+
+
+
+    note.classList.add("itemFound");
+
+
+
+    AudioManager.play("pickup");
+
+
+
+    showMessage(
+        "📜 Secret Note Collected"
+    );
+
+
+
+};
+
+}
+
+
+
+
+// ===============================
+// KEYPAD
+// ===============================
+
+
+if(keypad){
+
+
+keypad.onclick=()=>{
+
+
+    PuzzleManager.open();
+
+
+
+    AudioManager.play("click");
+
+
+};
+
+
+}
+
+
+
+
+// ===============================
+// DOOR
+// ===============================
+
+
+if(door){
+
+
+door.onclick=()=>{
+
+
+
+    if(!GameState.progress.hasKey){
+
+
+        showMessage(
+            "🔒 Need a key!"
         );
 
-    });
 
-}
+        door.classList.add("shake");
 
-// =====================================
-// KEYPAD
-// =====================================
 
-if (keypad) {
+        return;
 
-    keypad.addEventListener("click", () => {
+    }
+
+
+
+
+    if(!GameState.progress.doorUnlocked){
+
+
+
+        showMessage(
+            "🔢 Solve the puzzle first"
+        );
+
 
         PuzzleManager.open();
 
-    });
+
+        return;
+
+
+    }
+
+
+
+
+    escape();
+
+
+
+};
+
+
 
 }
 
-// =====================================
-// CLOSE MODAL
-// =====================================
 
-if (closePuzzle) {
 
-    closePuzzle.addEventListener("click", () => {
 
-        puzzleModal.classList.add("hidden");
 
-    });
-
-}
-
-// =====================================
-// DOOR
-// =====================================
-
-if (door) {
-
-    door.addEventListener("click", () => {
-
-        if (!hasKey) {
-
-            alert("🔒 You need a key.");
-
-            door.classList.add("shake");
-
-            setTimeout(() => {
-
-                door.classList.remove("shake");
-
-            }, 400);
-
-            return;
-
-        }
-
-        if (door.dataset.open !== "true") {
-
-            alert("🔢 Solve the keypad puzzle first.");
-
-            return;
-
-        }
-
-        escapeRoom();
-
-    });
-
-}
-
-// =====================================
+// ===============================
 // ESCAPE
-// =====================================
+// ===============================
 
-function escapeRoom() {
 
-    if (gameWon) return;
+function escape(){
 
-    GameState.won = true;
 
-    stopTimer();
+if(GameState.won)
+return;
 
-    room.classList.add("hidden");
 
-    hud.classList.add("hidden");
 
-    inventory.classList.add("hidden");
+GameState.won=true;
 
-    document
-        .getElementById("winScreen")
-        .classList.remove("hidden");
 
-    let score = 1000;
 
-    score += getTimeBonus();
+stopTimer();
 
-    finalScore.innerHTML =
-        "Final Score : " + score;
+
+
+let score =
+
+1000 +
+
+getTimeBonus();
+
+
+
+GameState.player.score=
+
+score;
+
+
+
+Achievements.unlock(
+"firstEscape"
+);
+
+
+
+Leaderboard.add(
+
+GameState.player.name,
+
+score,
+
+GameState.timer.time
+
+);
+
+
+
+
+document
+.getElementById("room")
+.classList.add("hidden");
+
+
+
+document
+.getElementById("hud")
+.classList.add("hidden");
+
+
+
+document
+.getElementById("inventory")
+.classList.add("hidden");
+
+
+
+document
+.getElementById("winScreen")
+.classList.remove("hidden");
+
+
+
+
+document
+.getElementById("finalScore")
+.innerHTML=
+
+"Final Score : "+score;
+
+
+
+AudioManager.play("unlock");
+
+
 
 }
 
-// =====================================
+
+
+
+// ===============================
 // RESTART
-// =====================================
+// ===============================
+
 
 const restart =
-    document.getElementById("restart");
+document.getElementById("restart");
 
-if (restart) {
 
-    restart.onclick = () => {
+if(restart){
 
-        location.reload();
 
-    };
+restart.onclick=()=>{
+
+
+GameState.reset();
+
+
+location.reload();
+
+
+};
+
 
 }
+
+
+
 
 const playAgain =
-    document.getElementById("playAgain");
+document.getElementById("playAgain");
 
-if (playAgain) {
 
-    playAgain.onclick = () => {
+if(playAgain){
 
-        location.reload();
 
-    };
+playAgain.onclick=()=>{
+
+
+GameState.reset();
+
+
+location.reload();
+
+
+};
+
 
 }
+
+
+
+});
