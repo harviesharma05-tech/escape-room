@@ -1,0 +1,262 @@
+/* ==========================================
+   ESCAPE ROOM - LEADERBOARD.CSS
+========================================== */
+
+#leaderboardScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.85);
+
+    backdrop-filter:blur(10px);
+
+    z-index:9999;
+
+}
+
+/* ============================= */
+
+.leaderboard{
+
+    width:750px;
+
+    max-width:95%;
+
+    background:#161b22;
+
+    border-radius:20px;
+
+    border:2px solid rgba(0,229,255,.25);
+
+    box-shadow:0 0 30px rgba(0,229,255,.2);
+
+    overflow:hidden;
+
+}
+
+/* ============================= */
+
+.leaderboardHeader{
+
+    padding:25px;
+
+    text-align:center;
+
+    background:#00bcd4;
+
+}
+
+.leaderboardHeader h1{
+
+    color:white;
+
+    font-size:38px;
+
+    letter-spacing:3px;
+
+}
+
+/* ============================= */
+
+.leaderboardTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.leaderboardTable th{
+
+    background:#1f2630;
+
+    color:#00e5ff;
+
+    padding:18px;
+
+    font-size:18px;
+
+}
+
+.leaderboardTable td{
+
+    padding:16px;
+
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+/* ============================= */
+
+.leaderboardTable tbody tr{
+
+    transition:.25s;
+
+}
+
+.leaderboardTable tbody tr:hover{
+
+    background:#202734;
+
+}
+
+/* ============================= */
+
+.rank1{
+
+    color:gold;
+
+    font-weight:bold;
+
+}
+
+.rank2{
+
+    color:silver;
+
+    font-weight:bold;
+
+}
+
+.rank3{
+
+    color:#cd7f32;
+
+    font-weight:bold;
+
+}
+
+/* ============================= */
+
+.playerName{
+
+    font-weight:600;
+
+    color:white;
+
+}
+
+.playerScore{
+
+    color:#00ff99;
+
+    font-weight:bold;
+
+}
+
+.playerTime{
+
+    color:#00e5ff;
+
+}
+
+/* ============================= */
+
+.leaderboardFooter{
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.closeLeaderboard{
+
+    padding:14px 30px;
+
+    background:#00bcd4;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.closeLeaderboard:hover{
+
+    background:#00e5ff;
+
+    box-shadow:0 0 20px cyan;
+
+}
+
+/* ============================= */
+
+.noScores{
+
+    padding:40px;
+
+    text-align:center;
+
+    color:#888;
+
+    font-size:20px;
+
+}
+
+/* ============================= */
+
+.newRecord{
+
+    animation:newRecord 1s infinite;
+
+}
+
+@keyframes newRecord{
+
+    50%{
+
+        color:#00ff99;
+
+        transform:scale(1.08);
+
+    }
+
+}
+
+/* ============================= */
+
+@media(max-width:768px){
+
+    .leaderboard{
+
+        width:95%;
+
+    }
+
+    .leaderboardHeader h1{
+
+        font-size:28px;
+
+    }
+
+    .leaderboardTable th,
+    .leaderboardTable td{
+
+        padding:10px;
+
+        font-size:14px;
+
+    }
+
+}
