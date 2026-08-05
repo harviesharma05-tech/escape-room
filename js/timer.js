@@ -2,126 +2,160 @@
    ESCAPE ROOM - TIMER.JS
 ========================================== */
 
-let totalTime = 15 * 60; // 15 Minutes
+
 let timerInterval = null;
-let paused = false;
 
-const timerElement = document.getElementById("timer");
 
-// ===============================
-// Start Timer
-// ===============================
+function startTimer(){
 
-function startTimer() {
 
-    if (timerInterval) return;
+    if(timerInterval) return;
 
-    updateTimer();
 
-    timerInterval = setInterval(() => {
+    timerInterval = setInterval(()=>{
 
-        if (paused) return;
 
-        totalTime--;
+        if(GameState.timer.paused)
+            return;
 
-        updateTimer();
 
-        if (totalTime <= 60) {
 
-            timerElement.style.color = "#ff4444";
-            timerElement.classList.add("blink");
-
-        }
-
-        if (totalTime <= 0) {
+        if(GameState.timer.time <= 0){
 
             gameOver();
 
+            return;
+
         }
+
+
+
+        GameState.timer.time--;
+
+
+        updateTimer();
+
+
+
+        if(GameState.timer.time <= 60){
+
+            const timer = document.getElementById("timer");
+
+            if(timer){
+
+                timer.classList.add("blink");
+
+            }
+
+        }
+
+
 
     },1000);
 
+
 }
 
-// ===============================
-// Update Display
-// ===============================
+
 
 function updateTimer(){
 
-    const minutes = Math.floor(totalTime / 60);
 
-    const seconds = totalTime % 60;
+    const timer = document.getElementById("timer");
 
-    timerElement.textContent =
-        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+    if(!timer)
+        return;
+
+
+
+    let minutes = Math.floor(
+
+        GameState.timer.time / 60
+
+    );
+
+
+    let seconds =
+
+        GameState.timer.time % 60;
+
+
+
+    timer.innerHTML =
+
+    `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
 
 }
 
-// ===============================
-// Pause
-// ===============================
+
+
 
 function pauseTimer(){
 
-    paused = true;
+    GameState.timer.paused=true;
 
 }
 
-// ===============================
-// Resume
-// ===============================
+
 
 function resumeTimer(){
 
-    paused = false;
+    GameState.timer.paused=false;
 
 }
 
-// ===============================
-// Stop
-// ===============================
+
 
 function stopTimer(){
 
+
     clearInterval(timerInterval);
 
-    timerInterval = null;
+
+    timerInterval=null;
+
 
 }
 
-// ===============================
-// Bonus Score
-// ===============================
+
 
 function getTimeBonus(){
 
-    return totalTime;
+    return GameState.timer.time;
 
 }
 
-// ===============================
-// Game Over
-// ===============================
+
 
 function gameOver(){
 
+
     stopTimer();
 
-    document
-        .getElementById("room")
-        .classList.add("hidden");
 
     document
-        .getElementById("hud")
-        .classList.add("hidden");
+    .getElementById("room")
+    .classList.add("hidden");
+
+
 
     document
-        .getElementById("inventory")
-        .classList.add("hidden");
+    .getElementById("hud")
+    .classList.add("hidden");
+
+
 
     document
-        .getElementById("gameOver")
-        .classList.remove("hidden");
+    .getElementById("inventory")
+    .classList.add("hidden");
+
+
+
+    document
+    .getElementById("gameOver")
+    .classList.remove("hidden");
+
 
 }
