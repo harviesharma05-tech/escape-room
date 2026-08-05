@@ -1,133 +1,193 @@
 /* ==========================================
-   ESCAPE ROOM - INVENTORY.JS
+   ESCAPE ROOM - INVENTORY
 ========================================== */
+
 
 const Inventory = {
 
-    items: [],
-    selectedItem: null,
 
-    container: document.getElementById("inventoryItems"),
+    items:[],
 
-    // -------------------------
-    // Add Item
-    // -------------------------
+
+    selected:null,
+
+
+    container:
+    document.getElementById("inventoryItems"),
+
+
 
     add(item){
 
+
+        if(this.has(item.id))
+            return;
+
+
+
         this.items.push(item);
 
-        GameState.inventory = this.items;
+
+        GameState.inventory=this.items;
+
 
         this.render();
 
-        console.log(item.name + " added.");
 
     },
 
-    // -------------------------
-    // Remove Item
-    // -------------------------
+
+
 
     remove(id){
 
-        this.items = this.items.filter(i => i.id !== id);
 
-        this.selectedItem = null;
+        this.items = this.items.filter(
+
+            item=>item.id!==id
+
+        );
+
+
+        GameState.inventory=this.items;
+
 
         this.render();
 
-    },
-
-    // -------------------------
-    // Get Item
-    // -------------------------
-
-    get(id){
-
-        return this.items.find(i => i.id === id);
 
     },
 
-    // -------------------------
-    // Has Item
-    // -------------------------
+
+
 
     has(id){
 
-        return this.items.some(i => i.id === id);
+
+        return this.items.some(
+
+            item=>item.id===id
+
+        );
+
 
     },
 
-    // -------------------------
-    // Select
-    // -------------------------
+
+
 
     select(id){
 
-        this.selectedItem = id;
+
+        this.selected=id;
+
 
         this.render();
 
+
     },
 
-    // -------------------------
-    // Clear
-    // -------------------------
+
+
+
+    load(items){
+
+
+        this.items=items || [];
+
+
+        GameState.inventory=this.items;
+
+
+        this.render();
+
+
+    },
+
+
+
 
     clear(){
 
-        this.items = [];
 
-        this.selectedItem = null;
+        this.items=[];
+
+
+        GameState.inventory=[];
+
 
         this.render();
 
+
     },
 
-    // -------------------------
-    // Render
-    // -------------------------
+
+
 
     render(){
 
-        this.container.innerHTML = "";
+
+        if(!this.container)
+            return;
+
+
+
+        this.container.innerHTML="";
+
+
 
         if(this.items.length===0){
 
-            this.container.innerHTML =
+
+            this.container.innerHTML=
 
             `<div class="inventoryEmpty">
-                Inventory Empty
+                Empty
             </div>`;
+
 
             return;
 
         }
 
+
+
         this.items.forEach(item=>{
 
-            const div=document.createElement("div");
+
+            let div=document.createElement("div");
+
+
 
             div.className="item";
 
-            if(this.selectedItem===item.id){
+
+
+            if(this.selected===item.id)
 
                 div.classList.add("selected");
 
-            }
 
-            div.innerHTML=`
 
-                <div style="font-size:42px;">
-                    ${item.icon}
-                </div>
+            div.innerHTML=
 
-                <div class="itemName">
-                    ${item.name}
-                </div>
+            `
+
+            <span>
+
+            ${item.icon}
+
+            </span>
+
+
+            <div class="itemName">
+
+            ${item.name}
+
+            </div>
 
             `;
+
+
 
             div.onclick=()=>{
 
@@ -135,104 +195,102 @@ const Inventory = {
 
             };
 
+
+
             this.container.appendChild(div);
+
 
         });
 
+
+
     }
+
+
 
 };
 
-/* ==========================================
-   DEFAULT ITEMS
-========================================== */
+
+
 
 const GameItems={
 
-    key:{
 
-        id:"key",
+key:{
 
-        name:"Golden Key",
+id:"key",
 
-        icon:"🔑"
+name:"Golden Key",
 
-    },
+icon:"🔑"
 
-    note:{
+},
 
-        id:"note",
 
-        name:"Secret Note",
+note:{
 
-        icon:"📜"
+id:"note",
 
-    },
+name:"Secret Note",
 
-    battery:{
+icon:"📜"
 
-        id:"battery",
+},
 
-        name:"Battery",
 
-        icon:"🔋"
+battery:{
 
-    },
+id:"battery",
 
-    flashlight:{
+name:"Battery",
 
-        id:"flashlight",
+icon:"🔋"
 
-        name:"Flashlight",
+},
 
-        icon:"🔦"
 
-    },
+flashlight:{
 
-    screwdriver:{
+id:"flashlight",
 
-        id:"tool",
+name:"Flashlight",
 
-        name:"Screwdriver",
+icon:"🔦"
 
-        icon:"🪛"
+}
 
-    }
+
 
 };
 
-/* ==========================================
-   Helper Functions
-========================================== */
+
 
 function addItem(id){
 
-    if(GameItems[id]){
 
-        if(!Inventory.has(GameItems[id].id)){
+    if(GameItems[id])
 
-            Inventory.add(GameItems[id]);
+        Inventory.add(GameItems[id]);
 
-        }
-
-    }
 
 }
+
+
 
 function removeItem(id){
 
+
     Inventory.remove(id);
 
+
 }
+
+
 
 function hasItem(id){
 
+
     return Inventory.has(id);
 
+
 }
-
-/* ==========================================
-   Start Empty
-========================================== */
-
-Inventory.render();
