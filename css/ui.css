@@ -1,0 +1,463 @@
+/* =====================================
+   ESCAPE ROOM - UI.CSS
+===================================== */
+
+/* Google Font (optional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root{
+
+    --primary:#00e5ff;
+    --secondary:#00bcd4;
+    --danger:#ff4d4d;
+    --success:#00ff99;
+
+    --dark:#10141d;
+    --panel:rgba(20,20,25,.75);
+
+    --white:#ffffff;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+/* =============================
+      GLASS PANEL
+============================= */
+
+.glass{
+
+    background:var(--panel);
+
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:18px;
+
+    box-shadow:0 0 20px rgba(0,0,0,.35);
+
+}
+
+/* =============================
+      BUTTONS
+============================= */
+
+.btn{
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(135deg,var(--secondary),var(--primary));
+
+    transition:.3s;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 0 25px cyan;
+
+}
+
+.btn-danger{
+
+    background:linear-gradient(135deg,#ff5252,#d50000);
+
+}
+
+.btn-success{
+
+    background:linear-gradient(135deg,#00c853,#00e676);
+
+}
+
+/* =============================
+      TITLE
+============================= */
+
+.gameTitle{
+
+    font-size:60px;
+
+    text-align:center;
+
+    text-shadow:0 0 20px cyan;
+
+    letter-spacing:4px;
+
+}
+
+/* =============================
+      MENU CARD
+============================= */
+
+.menuCard{
+
+    width:420px;
+
+    max-width:90%;
+
+    padding:35px;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+.menuCard button{
+
+    width:100%;
+
+    margin-top:18px;
+
+}
+
+/* =============================
+      HUD
+============================= */
+
+#hud{
+
+    display:flex;
+
+    gap:18px;
+
+}
+
+.hudBox{
+
+    min-width:120px;
+
+    text-align:center;
+
+}
+
+.hudTitle{
+
+    font-size:13px;
+
+    color:#bbb;
+
+}
+
+.hudValue{
+
+    font-size:26px;
+
+    margin-top:5px;
+
+    font-weight:bold;
+
+}
+
+/* =============================
+      MODAL
+============================= */
+
+.modalOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+.modal{
+
+    width:650px;
+
+    max-width:92%;
+
+    padding:30px;
+
+}
+
+.modal h2{
+
+    margin-bottom:18px;
+
+}
+
+.modalFooter{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+/* =============================
+      INPUT
+============================= */
+
+input,
+select{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:10px;
+
+    background:#1f2630;
+
+    color:white;
+
+    margin-top:12px;
+
+    font-size:16px;
+
+}
+
+/* =============================
+      POPUP MESSAGE
+============================= */
+
+.toast{
+
+    position:fixed;
+
+    top:30px;
+
+    right:30px;
+
+    padding:18px 25px;
+
+    border-radius:12px;
+
+    color:white;
+
+    z-index:2000;
+
+    animation:toastIn .4s;
+
+}
+
+.toast.success{
+
+    background:#00c853;
+
+}
+
+.toast.error{
+
+    background:#d50000;
+
+}
+
+.toast.info{
+
+    background:#0288d1;
+
+}
+
+@keyframes toastIn{
+
+    from{
+
+        transform:translateX(120%);
+
+    }
+
+    to{
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* =============================
+      SETTINGS PANEL
+============================= */
+
+.settingsRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:18px 0;
+
+}
+
+.settingsLabel{
+
+    font-size:18px;
+
+}
+
+/* =============================
+      TOGGLE SWITCH
+============================= */
+
+.switch{
+
+    position:relative;
+
+    width:58px;
+
+    height:30px;
+
+}
+
+.switch input{
+
+    display:none;
+
+}
+
+.slider{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#555;
+
+    border-radius:30px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.slider::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:24px;
+
+    height:24px;
+
+    left:3px;
+
+    top:3px;
+
+    background:white;
+
+    border-radius:50%;
+
+    transition:.3s;
+
+}
+
+input:checked + .slider{
+
+    background:var(--success);
+
+}
+
+input:checked + .slider::before{
+
+    transform:translateX(28px);
+
+}
+
+/* =============================
+      SCORE BOX
+============================= */
+
+.scoreCard{
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+.scoreCard h1{
+
+    font-size:60px;
+
+    color:var(--success);
+
+}
+
+.scoreCard h3{
+
+    margin-top:10px;
+
+    color:#ccc;
+
+}
+
+/* =============================
+      RESPONSIVE
+============================= */
+
+@media(max-width:768px){
+
+    .gameTitle{
+
+        font-size:40px;
+
+    }
+
+    .menuCard{
+
+        width:95%;
+
+    }
+
+    .hudBox{
+
+        min-width:80px;
+
+    }
+
+    .hudValue{
+
+        font-size:18px;
+
+    }
+
+    .modal{
+
+        width:95%;
+
+    }
+
+}
