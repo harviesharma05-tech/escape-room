@@ -3,130 +3,321 @@
 ========================================== */
 
 
-const SaveManager={
+const SaveManager = {
 
 
-key:"EscapeRoom_Save",
+    key:"EscapeRoom_Save",
 
 
 
-save(){
+    // ==================================
+    // SAVE GAME
+    // ==================================
 
+    save(){
 
-    const data={
 
+        const data = {
 
-        state:GameState,
 
+            gameState:{
 
-        inventory:Inventory.items,
+                started:GameState.started,
 
+                won:GameState.won,
 
-        room:RoomGenerator.currentRoom
 
+                player:
 
+                GameState.player,
 
-    };
 
+                progress:
 
+                GameState.progress,
 
-    localStorage.setItem(
 
-        this.key,
+                timer:
 
-        JSON.stringify(data)
+                GameState.timer,
 
-    );
 
+                room:
 
-    console.log("Saved");
+                GameState.room,
 
-},
 
+                puzzle:
 
+                GameState.puzzle
 
+            },
 
-load(){
 
+            inventory:
 
+            Inventory.items,
 
-    const save=
 
-    localStorage.getItem(this.key);
 
+            room:
 
+            RoomGenerator.currentRoom
 
-    if(!save)
 
-        return false;
 
+        };
 
 
-    const data=
 
-    JSON.parse(save);
 
 
+        localStorage.setItem(
 
+            this.key,
 
-    Object.assign(
+            JSON.stringify(data)
 
-        GameState,
+        );
 
-        data.state
 
-    );
 
+        console.log(
+            "Game Saved"
+        );
 
 
-    Inventory.load(
 
-        data.inventory
+    },
 
-    );
 
 
 
-    RoomGenerator.currentRoom=
 
-    data.room;
 
+    // ==================================
+    // LOAD GAME
+    // ==================================
 
+    load(){
 
-    if(RoomGenerator.currentRoom)
 
-        RoomGenerator.load();
 
+        const saved =
 
+        localStorage.getItem(
 
+            this.key
 
-    updateTimer();
+        );
 
 
 
-    console.log("Loaded");
 
+        if(!saved){
 
-    return true;
 
+            console.log(
+                "No Save Found"
+            );
 
 
-},
+            return false;
 
 
+        }
 
 
-clear(){
 
 
-    localStorage.removeItem(
+        const data =
 
-        this.key
+        JSON.parse(saved);
 
-    );
 
 
-}
+
+
+        // Restore GameState
+
+        Object.assign(
+
+            GameState,
+
+            data.gameState
+
+        );
+
+
+
+
+
+
+        // Restore Inventory
+
+
+        if(data.inventory){
+
+
+            Inventory.load(
+
+                data.inventory
+
+            );
+
+
+        }
+
+
+
+
+
+
+        // Restore Room
+
+
+        if(data.room){
+
+
+            RoomGenerator.currentRoom=
+
+            data.room;
+
+
+
+            RoomGenerator.load();
+
+
+        }
+
+
+
+
+
+
+
+        // Restore Timer
+
+
+        updateTimer();
+
+
+
+
+
+        console.log(
+
+            "Game Loaded"
+
+        );
+
+
+
+        return true;
+
+
+
+    },
+
+
+
+
+
+
+    // ==================================
+    // CHECK SAVE EXISTS
+    // ==================================
+
+    exists(){
+
+
+        return localStorage.getItem(
+
+            this.key
+
+        ) !== null;
+
+
+
+    },
+
+
+
+
+
+
+
+    // ==================================
+    // DELETE SAVE
+    // ==================================
+
+    clear(){
+
+
+
+        localStorage.removeItem(
+
+            this.key
+
+        );
+
+
+
+        console.log(
+
+            "Save Deleted"
+
+        );
+
+
+
+    },
+
+
+
+
+
+
+
+    // ==================================
+    // EXPORT SAVE
+    // ==================================
+
+    export(){
+
+
+        return localStorage.getItem(
+
+            this.key
+
+        );
+
+
+    },
+
+
+
+
+
+
+
+    // ==================================
+    // IMPORT SAVE
+    // ==================================
+
+    import(data){
+
+
+        localStorage.setItem(
+
+            this.key,
+
+            data
+
+        );
+
+
+    }
 
 
 
@@ -135,18 +326,34 @@ clear(){
 
 
 
-// Auto Save
+
+
+
+// ==================================
+// AUTO SAVE EVERY 30 SEC
+// ==================================
+
 
 setInterval(()=>{
 
 
-    if(GameState.started){
+
+if(
+
+GameState &&
+
+GameState.started &&
+
+!GameState.won
+
+){
 
 
-        SaveManager.save();
+SaveManager.save();
 
 
-    }
+
+}
 
 
 
