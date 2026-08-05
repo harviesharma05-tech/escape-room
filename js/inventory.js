@@ -17,6 +17,8 @@ const Inventory = {
 
         this.items.push(item);
 
+        GameState.inventory = this.items;
+
         this.render();
 
         console.log(item.name + " added.");
