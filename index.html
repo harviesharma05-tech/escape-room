@@ -1,183 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Escape Room</title>
 
+
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/room.css">
+    <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/inventory.css">
+    <link rel="stylesheet" href="css/leaderboard.css">
+
 </head>
+
+
 <body>
 
-    <!-- Loading Screen -->
-    <div id="loadingScreen">
-        <h1>ESCAPE ROOM</h1>
-        <p>Loading...</p>
+
+<!-- ==========================
+     LOADING SCREEN
+========================== -->
+
+<div id="loadingScreen">
+
+    <h1>ESCAPE ROOM</h1>
+
+    <p>Loading...</p>
+
+</div>
+
+
+
+<!-- ==========================
+     MAIN MENU
+========================== -->
+
+<section id="mainMenu" class="hidden">
+
+
+    <h1 class="gameTitle">
+        ESCAPE ROOM
+    </h1>
+
+
+    <button id="startBtn">
+        Start Game
+    </button>
+
+
+    <button id="continueBtn">
+        Continue
+    </button>
+
+
+    <button id="leaderboardBtn">
+        Leaderboard
+    </button>
+
+
+    <button id="settingsBtn">
+        Settings
+    </button>
+
+
+</section>
+
+
+
+
+<!-- ==========================
+     HUD
+========================== -->
+
+<header id="hud" class="hidden">
+
+
+    <div class="hudBox glass">
+
+        ⏳
+
+        <span id="timer">
+            15:00
+        </span>
+
     </div>
 
-    <!-- Main Menu -->
-    <section id="mainMenu" class="hidden">
 
-        <h1>ESCAPE ROOM</h1>
+    <div class="hudBox glass">
 
-        <button id="startBtn">
-            Start Game
+        💡
+
+        <span id="hints">
+            3
+        </span>
+
+    </div>
+
+
+    <div class="hudBox glass">
+
+        ⭐
+
+        <span id="score">
+            0
+        </span>
+
+    </div>
+
+
+</header>
+
+
+
+
+
+<!-- ==========================
+     GAME ROOM
+========================== -->
+
+
+<main id="room" class="hidden">
+
+
+    <img
+    id="roomImage"
+    src="assets/images/rooms/lab.jpg"
+    alt="Room">
+
+
+    <!-- Objects -->
+
+    <div id="objects">
+
+
+        <div
+        class="object key"
+        id="objKey">
+
+        </div>
+
+
+
+        <div
+        class="object note"
+        id="objNote">
+
+        </div>
+
+
+
+        <div
+        class="object keypad"
+        id="objKeypad">
+
+        </div>
+
+
+
+        <div
+        class="object door"
+        id="objDoor">
+
+        </div>
+
+
+
+    </div>
+
+
+</main>
+
+
+
+
+
+<!-- ==========================
+     INVENTORY
+========================== -->
+
+
+<aside id="inventory" class="hidden">
+
+
+    <h2 class="inventoryTitle">
+
+        Inventory
+
+    </h2>
+
+
+    <div id="inventoryItems">
+
+
+    </div>
+
+
+</aside>
+
+
+
+
+
+
+
+<!-- ==========================
+     PUZZLE MODAL
+========================== -->
+
+
+<div id="puzzleModal" class="hidden">
+
+
+    <div class="modalContent glass">
+
+
+        <h2 id="puzzleTitle">
+
+            Puzzle
+
+        </h2>
+
+
+
+        <div id="puzzleBody">
+
+
+        </div>
+
+
+
+        <button id="submitPuzzle">
+
+            Submit
+
         </button>
 
-        <button id="continueBtn">
-            Continue
+
+
+        <button id="closePuzzle">
+
+            Close
+
         </button>
 
-        <button id="leaderboardBtn">
-            Leaderboard
-        </button>
 
-        <button id="settingsBtn">
-            Settings
-        </button>
+    </div>
 
-    </section>
 
-    <!-- HUD -->
-    <header id="hud" class="hidden">
+</div>
 
-        <div class="hudBox">
-            ⏳
-            <span id="timer">
-                15:00
-            </span>
-        </div>
 
-        <div class="hudBox">
-            💡
-            <span id="hints">
-                3
-            </span>
-        </div>
 
-        <div class="hudBox">
-            ⭐
-            <span id="score">
-                0
-            </span>
-        </div>
 
-    </header>
 
-    <!-- Room -->
-    <main id="room" class="hidden">
 
-        <img
-            id="roomImage"
-            src="assets/images/rooms/lab.jpg"
-            alt="Room">
 
-        <!-- Clickable Objects -->
-        <div id="objects">
+<!-- ==========================
+     LEADERBOARD
+========================== -->
 
-            <div class="object key" id="objKey"></div>
 
-            <div class="object note" id="objNote"></div>
+<section id="leaderboardScreen" class="hidden">
 
-            <div class="object keypad" id="objKeypad"></div>
 
-            <div class="object door" id="objDoor"></div>
+    <div class="leaderboard">
+
+
+        <div class="leaderboardHeader">
+
+            <h1>
+                Leaderboard
+            </h1>
 
         </div>
 
-    </main>
 
-    <!-- Inventory -->
-    <aside id="inventory" class="hidden">
 
-        <h2>Inventory</h2>
+        <table class="leaderboardTable">
 
-        <div id="inventoryItems">
 
-        </div>
+            <thead>
 
-    </aside>
+                <tr>
 
-    <!-- Puzzle Popup -->
-    <div id="puzzleModal" class="hidden">
+                    <th>
+                        Rank
+                    </th>
 
-        <div class="modalContent">
+                    <th>
+                        Player
+                    </th>
 
-            <h2 id="puzzleTitle">
-                Puzzle
-            </h2>
+                    <th>
+                        Score
+                    </th>
 
-            <div id="puzzleBody">
+                    <th>
+                        Time
+                    </th>
 
-            </div>
+                </tr>
 
-            <button id="submitPuzzle">
-                Submit
-            </button>
+            </thead>
 
-            <button id="closePuzzle">
+
+            <tbody id="leaderboardBody">
+
+
+            </tbody>
+
+
+        </table>
+
+
+
+        <div class="leaderboardFooter">
+
+
+            <button id="closeLeaderboard">
+
                 Close
+
             </button>
+
 
         </div>
 
+
+
     </div>
 
-    <!-- Win Screen -->
-    <section id="winScreen" class="hidden">
 
-        <h1>
-            🎉 You Escaped!
-        </h1>
+</section>
 
-        <p id="finalScore">
-            Score : 0
-        </p>
 
-        <button id="playAgain">
-            Play Again
+
+
+
+
+
+<!-- ==========================
+     SETTINGS
+========================== -->
+
+
+<section id="settingsPanel" class="hidden">
+
+
+    <div class="modalContent glass">
+
+
+        <h2>
+            Settings
+        </h2>
+
+
+
+        <div class="settingsRow">
+
+            <span>
+                Music
+            </span>
+
+
+            <input
+            type="checkbox"
+            id="musicToggle"
+            checked>
+
+        </div>
+
+
+
+
+        <div class="settingsRow">
+
+            <span>
+                Sound
+            </span>
+
+
+            <input
+            type="checkbox"
+            id="soundToggle"
+            checked>
+
+
+        </div>
+
+
+
+        <button id="closeSettings">
+
+            Close
+
         </button>
 
-    </section>
 
-    <!-- Game Over -->
-    <section id="gameOver" class="hidden">
+    </div>
 
-        <h1>
-            Time's Up!
-        </h1>
 
-        <button id="restart">
-            Restart
-        </button>
+</section>
 
-    </section>
 
-    <!-- Audio -->
-    <audio
-        id="bgMusic"
-        loop>
-        <source src="assets/audio/bgm/theme.mp3">
-    </audio>
 
-    <audio id="clickSound">
-        <source src="assets/audio/sfx/click.mp3">
-    </audio>
 
-    <audio id="unlockSound">
-        <source src="assets/audio/sfx/unlock.mp3">
-    </audio>
 
-    <script src="js/timer.js"></script>
-    <script src="js/inventory.js"></script>
-    <script src="js/audio.js"></script>
-    <script src="js/roomGenerator.js"></script>
-    <script src="js/puzzleManager.js"></script>
-    <script src="js/leaderboard.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/app.js"></script>
+
+
+<!-- ==========================
+     WIN SCREEN
+========================== -->
+
+
+<section id="winScreen" class="hidden">
+
+
+    <h1>
+
+        🎉 You Escaped!
+
+    </h1>
+
+
+    <p id="finalScore">
+
+        Score : 0
+
+    </p>
+
+
+
+    <button id="playAgain">
+
+        Play Again
+
+    </button>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==========================
+     GAME OVER
+========================== -->
+
+
+<section id="gameOver" class="hidden">
+
+
+    <h1>
+
+        Time's Up!
+
+    </h1>
+
+
+    <button id="restart">
+
+        Restart
+
+    </button>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==========================
+     AUDIO
+========================== -->
+
+
+<audio id="bgMusic" loop>
+
+    <source src="assets/audio/bgm/theme.mp3">
+
+</audio>
+
+
+
+<audio id="clickSound">
+
+    <source src="assets/audio/sfx/click.mp3">
+
+</audio>
+
+
+
+<audio id="unlockSound">
+
+    <source src="assets/audio/sfx/unlock.mp3">
+
+</audio>
+
+
+
+
+
+
+
+<!-- ==========================
+     JAVASCRIPT
+========================== -->
+
+
+<script src="js/utils.js"></script>
+
+<script src="js/settings.js"></script>
+
+<script src="js/player.js"></script>
+
+<script src="js/leaderboard.js"></script>
+
+<script src="js/achievements.js"></script>
+
+<script src="js/audio.js"></script>
+
+<script src="js/inventory.js"></script>
+
+<script src="js/roomGenerator.js"></script>
+
+<script src="js/puzzleManager.js"></script>
+
+<script src="js/timer.js"></script>
+
+<script src="js/saveManager.js"></script>
+
+<script src="js/game.js"></script>
+
+<script src="js/app.js"></script>
+
+
 
 </body>
+
 </html>
