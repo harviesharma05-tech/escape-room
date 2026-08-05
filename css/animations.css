@@ -1,0 +1,407 @@
+/* ==========================================
+   ESCAPE ROOM - ANIMATIONS.CSS
+========================================== */
+
+/* ===============================
+   FADE
+================================= */
+
+.fadeIn{
+    animation:fadeIn .5s ease forwards;
+}
+
+.fadeOut{
+    animation:fadeOut .5s ease forwards;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+@keyframes fadeOut{
+
+    from{
+        opacity:1;
+    }
+
+    to{
+        opacity:0;
+    }
+
+}
+
+/* ===============================
+   SCALE
+================================= */
+
+.scaleIn{
+    animation:scaleIn .35s ease;
+}
+
+@keyframes scaleIn{
+
+    from{
+        transform:scale(.7);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+
+}
+
+/* ===============================
+   SHAKE
+================================= */
+
+.shake{
+    animation:shake .4s;
+}
+
+@keyframes shake{
+
+    0%{transform:translateX(0);}
+    20%{transform:translateX(-8px);}
+    40%{transform:translateX(8px);}
+    60%{transform:translateX(-6px);}
+    80%{transform:translateX(6px);}
+    100%{transform:translateX(0);}
+
+}
+
+/* ===============================
+   GLOW
+================================= */
+
+.glow{
+    animation:glow 1.2s infinite;
+}
+
+@keyframes glow{
+
+    50%{
+
+        box-shadow:
+        0 0 15px cyan,
+        0 0 35px cyan,
+        0 0 55px cyan;
+
+    }
+
+}
+
+/* ===============================
+   FLOAT
+================================= */
+
+.float{
+    animation:float 2s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+/* ===============================
+   SPIN
+================================= */
+
+.spin{
+    animation:spin 2s linear infinite;
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* ===============================
+   DOOR OPEN
+================================= */
+
+.doorOpen{
+
+    animation:doorOpen .8s forwards;
+
+}
+
+@keyframes doorOpen{
+
+    from{
+
+        transform:rotateY(0deg);
+
+        transform-origin:left;
+
+    }
+
+    to{
+
+        transform:rotateY(-75deg);
+
+        transform-origin:left;
+
+    }
+
+}
+
+/* ===============================
+   ITEM FOUND
+================================= */
+
+.itemFound{
+
+    animation:itemFound .8s;
+
+}
+
+@keyframes itemFound{
+
+    0%{
+
+        transform:scale(.3);
+
+        opacity:0;
+
+    }
+
+    60%{
+
+        transform:scale(1.2);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ===============================
+   BUTTON PULSE
+================================= */
+
+.pulse{
+
+    animation:pulse 1.5s infinite;
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.08);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* ===============================
+   BLINK
+================================= */
+
+.blink{
+
+    animation:blink 1s infinite;
+
+}
+
+@keyframes blink{
+
+    50%{
+
+        opacity:.2;
+
+    }
+
+}
+
+/* ===============================
+   VICTORY
+================================= */
+
+.victory{
+
+    animation:victory 1.2s;
+
+}
+
+@keyframes victory{
+
+    0%{
+
+        transform:scale(.5);
+
+        opacity:0;
+
+    }
+
+    40%{
+
+        transform:scale(1.2);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ===============================
+   GAME OVER
+================================= */
+
+.gameOverFlash{
+
+    animation:gameOverFlash .5s infinite;
+
+}
+
+@keyframes gameOverFlash{
+
+    50%{
+
+        background:#5c0000;
+
+    }
+
+}
+
+/* ===============================
+   SPARKLE
+================================= */
+
+.sparkle{
+
+    animation:sparkle 1.2s infinite;
+
+}
+
+@keyframes sparkle{
+
+    0%{
+
+        filter:brightness(1);
+
+    }
+
+    50%{
+
+        filter:brightness(2);
+
+    }
+
+    100%{
+
+        filter:brightness(1);
+
+    }
+
+}
+
+/* ===============================
+   SLIDE
+================================= */
+
+.slideLeft{
+
+    animation:slideLeft .4s forwards;
+
+}
+
+.slideRight{
+
+    animation:slideRight .4s forwards;
+
+}
+
+@keyframes slideLeft{
+
+    from{
+
+        transform:translateX(100px);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateX(0);
+
+        opacity:1;
+
+    }
+
+}
+
+@keyframes slideRight{
+
+    from{
+
+        transform:translateX(-100px);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:translateX(0);
+
+        opacity:1;
+
+    }
+
+}
