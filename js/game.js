@@ -41,7 +41,7 @@ if (key) {
 
         if (hasKey) return;
 
-        hasKey = true;
+        GameState.progress.hasKey = true;
 
         key.classList.add("found");
 
@@ -63,7 +63,7 @@ if (note) {
 
         if (hasNote) return;
 
-        hasNote = true;
+        GameState.progress.hasNote = true;
 
         note.classList.add("found");
 
@@ -151,7 +151,7 @@ function escapeRoom() {
 
     if (gameWon) return;
 
-    gameWon = true;
+    GameState.won = true;
 
     stopTimer();
 
