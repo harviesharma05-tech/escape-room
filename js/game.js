@@ -1,203 +1,159 @@
-// ===============================
-// ESCAPE ROOM - GAME ENGINE
-// ===============================
+/* ==========================================
+   ESCAPE ROOM - GAME.JS
+========================================== */
 
-let gameStarted = false;
+// -----------------------------
+// Game State
+// -----------------------------
+
 let hasKey = false;
 let hasNote = false;
 let gameWon = false;
 
-const startBtn = document.getElementById("startBtn");
-const loadingScreen = document.getElementById("loadingScreen");
-const menu = document.getElementById("mainMenu");
-const room = document.getElementById("room");
-const hud = document.getElementById("hud");
-const inventory = document.getElementById("inventory");
+// -----------------------------
+// DOM Elements
+// -----------------------------
 
 const key = document.getElementById("objKey");
 const note = document.getElementById("objNote");
 const keypad = document.getElementById("objKeypad");
 const door = document.getElementById("objDoor");
 
+const room = document.getElementById("room");
+const hud = document.getElementById("hud");
+const inventory = document.getElementById("inventory");
+
 const puzzleModal = document.getElementById("puzzleModal");
-const puzzleTitle = document.getElementById("puzzleTitle");
-const puzzleBody = document.getElementById("puzzleBody");
 
-const winScreen = document.getElementById("winScreen");
-const finalScore = document.getElementById("finalScore");
+const closePuzzle =
+    document.getElementById("closePuzzle");
 
-// ----------------------------
-// Loading Screen
-// ----------------------------
+const finalScore =
+    document.getElementById("finalScore");
 
-window.onload = () => {
+// =====================================
+// KEY
+// =====================================
 
-    setTimeout(() => {
+if (key) {
 
-        loadingScreen.classList.add("hidden");
-        menu.classList.remove("hidden");
+    key.addEventListener("click", () => {
 
-    },2000);
+        if (hasKey) return;
 
-};
+        hasKey = true;
 
-// ----------------------------
-// Start Game
-// ----------------------------
+        key.classList.add("found");
 
-startBtn.onclick = () => {
+        addItem("key");
 
-    gameStarted = true;
+        alert("🔑 Golden Key Collected!");
 
-    menu.classList.add("hidden");
+    });
 
-    room.classList.remove("hidden");
-    hud.classList.remove("hidden");
-    inventory.classList.remove("hidden");
+}
 
-    console.log("Game Started");
+// =====================================
+// NOTE
+// =====================================
 
-};
+if (note) {
 
-// ----------------------------
-// Pick Key
-// ----------------------------
+    note.addEventListener("click", () => {
 
-key.onclick = () => {
+        if (hasNote) return;
 
-    if(hasKey) return;
+        hasNote = true;
 
-    hasKey = true;
+        note.classList.add("found");
 
-    key.classList.add("found");
+        addItem("note");
 
-    addInventory("🔑");
+        alert(
+            "📜 Secret Note:\nThe keypad contains the answer..."
+        );
 
-    alert("You picked up a Key!");
+    });
 
-};
+}
 
-// ----------------------------
-// Read Note
-// ----------------------------
+// =====================================
+// KEYPAD
+// =====================================
 
-note.onclick = () => {
+if (keypad) {
 
-    if(hasNote) return;
+    keypad.addEventListener("click", () => {
 
-    hasNote = true;
+        PuzzleManager.open();
 
-    note.classList.add("found");
+    });
 
-    puzzleModal.classList.remove("hidden");
+}
 
-    puzzleTitle.innerText = "Secret Note";
+// =====================================
+// CLOSE MODAL
+// =====================================
 
-    puzzleBody.innerHTML = `
-        <h3>
-            Door Password Hint
-        </h3>
+if (closePuzzle) {
 
-        <p>
-
-        Reverse of
-
-        <b>4213</b>
-
-        </p>
-    `;
-
-};
-
-// ----------------------------
-// Close Popup
-// ----------------------------
-
-document.getElementById("closePuzzle").onclick = () => {
-
-    puzzleModal.classList.add("hidden");
-
-};
-
-// ----------------------------
-// Keypad
-// ----------------------------
-
-keypad.onclick = () => {
-
-    puzzleModal.classList.remove("hidden");
-
-    puzzleTitle.innerText = "Door Keypad";
-
-    puzzleBody.innerHTML = `
-
-        <input
-        id="passwordInput"
-        placeholder="Enter Password"
-        style="
-        width:100%;
-        padding:15px;
-        font-size:20px;
-        ">
-    `;
-
-};
-
-// ----------------------------
-// Submit Password
-// ----------------------------
-
-document.getElementById("submitPuzzle").onclick = () => {
-
-    const input = document.getElementById("passwordInput");
-
-    if(!input) return;
-
-    if(input.value==="3124"){
-
-        alert("Correct Password!");
+    closePuzzle.addEventListener("click", () => {
 
         puzzleModal.classList.add("hidden");
 
-        door.classList.add("unlocked");
+    });
 
-        door.dataset.open="true";
+}
 
-    }
+// =====================================
+// DOOR
+// =====================================
 
-    else{
+if (door) {
 
-        alert("Wrong Password");
+    door.addEventListener("click", () => {
 
-    }
+        if (!hasKey) {
 
-};
+            alert("🔒 You need a key.");
 
-// ----------------------------
-// Door
-// ----------------------------
+            door.classList.add("shake");
 
-door.onclick = ()=>{
+            setTimeout(() => {
 
-    if(!hasKey){
+                door.classList.remove("shake");
 
-        alert("Door is Locked.\nFind the Key.");
+            }, 400);
 
-        return;
+            return;
 
-    }
+        }
 
-    if(door.dataset.open!=="true"){
+        if (door.dataset.open !== "true") {
 
-        alert("Door requires Password.");
+            alert("🔢 Solve the keypad puzzle first.");
 
-        return;
+            return;
 
-    }
+        }
 
-    if(gameWon) return;
+        escapeRoom();
 
-    gameWon=true;
+    });
+
+}
+
+// =====================================
+// ESCAPE
+// =====================================
+
+function escapeRoom() {
+
+    if (gameWon) return;
+
+    gameWon = true;
+
+    stopTimer();
 
     room.classList.add("hidden");
 
@@ -205,26 +161,45 @@ door.onclick = ()=>{
 
     inventory.classList.add("hidden");
 
-    winScreen.classList.remove("hidden");
-
-    finalScore.innerHTML="Score : 100";
-
-};
-
-// ----------------------------
-// Inventory
-// ----------------------------
-
-function addInventory(item){
-
-    const div=document.createElement("div");
-
-    div.className="item";
-
-    div.innerHTML=item;
-
     document
-    .getElementById("inventoryItems")
-    .appendChild(div);
+        .getElementById("winScreen")
+        .classList.remove("hidden");
+
+    let score = 1000;
+
+    score += getTimeBonus();
+
+    finalScore.innerHTML =
+        "Final Score : " + score;
+
+}
+
+// =====================================
+// RESTART
+// =====================================
+
+const restart =
+    document.getElementById("restart");
+
+if (restart) {
+
+    restart.onclick = () => {
+
+        location.reload();
+
+    };
+
+}
+
+const playAgain =
+    document.getElementById("playAgain");
+
+if (playAgain) {
+
+    playAgain.onclick = () => {
+
+        location.reload();
+
+    };
 
 }
