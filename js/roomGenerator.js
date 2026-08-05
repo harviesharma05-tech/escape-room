@@ -2,193 +2,368 @@
    ESCAPE ROOM - ROOM GENERATOR
 ========================================== */
 
+
 const RoomGenerator = {
 
-    rooms: [
 
-        {
-            id: 1,
-            name: "Secret Laboratory",
-            image: "assets/images/rooms/lab.jpg",
 
-            objects: {
+rooms:[
 
-                key: {
-                    left: "18%",
-                    top: "72%"
-                },
 
-                note: {
-                    left: "62%",
-                    top: "60%"
-                },
+{
+    id:1,
 
-                keypad: {
-                    left: "82%",
-                    top: "46%"
-                },
+    name:"Secret Laboratory",
 
-                door: {
-                    right: "5%",
-                    top: "24%"
-                }
+    image:
+    "assets/images/rooms/lab.jpg",
 
-            }
+    difficulty:"easy"
 
-        },
+},
 
-        {
-            id: 2,
-            name: "Haunted Library",
-            image: "assets/images/rooms/library.jpg",
 
-            objects: {
 
-                key: {
-                    left: "70%",
-                    top: "80%"
-                },
+{
+    id:2,
 
-                note: {
-                    left: "25%",
-                    top: "45%"
-                },
+    name:"Haunted Library",
 
-                keypad: {
-                    left: "80%",
-                    top: "52%"
-                },
+    image:
+    "assets/images/rooms/library.jpg",
 
-                door: {
-                    right: "4%",
-                    top: "22%"
-                }
+    difficulty:"medium"
 
-            }
+},
 
-        },
 
-        {
-            id: 3,
-            name: "Cyber Bunker",
-            image: "assets/images/rooms/bunker.jpg",
 
-            objects: {
+{
+    id:3,
 
-                key: {
-                    left: "12%",
-                    top: "66%"
-                },
+    name:"Cyber Bunker",
 
-                note: {
-                    left: "40%",
-                    top: "70%"
-                },
+    image:
+    "assets/images/rooms/bunker.jpg",
 
-                keypad: {
-                    left: "83%",
-                    top: "42%"
-                },
+    difficulty:"hard"
 
-                door: {
-                    right: "5%",
-                    top: "18%"
-                }
+}
 
-            }
 
-        }
 
-    ],
+],
 
-    currentRoom: null,
 
-    //--------------------------------------
 
-    generate() {
 
-        const index = Math.floor(
+currentRoom:null,
 
-            Math.random() *
 
-            this.rooms.length
 
-        );
 
-        this.currentRoom =
 
-            this.rooms[index];
+objects:[
 
-        this.load();
+"objKey",
 
-    },
+"objNote",
 
-    //--------------------------------------
+"objKeypad",
 
-    load() {
+"objDoor"
 
-        const room = this.currentRoom;
+],
 
-        console.log("Room Loaded:", room.name);
 
-        document
-            .getElementById("roomImage")
-            .src = room.image;
 
-        this.placeObjects(room.objects);
 
-    },
 
-    //--------------------------------------
 
-    placeObjects(objects) {
+// ==================================
+// Generate Room
+// ==================================
 
-        const key =
 
-            document.getElementById("objKey");
+generate(){
 
-        const note =
 
-            document.getElementById("objNote");
 
-        const keypad =
+let difficulty =
 
-            document.getElementById("objKeypad");
+Settings.data.difficulty;
 
-        const door =
 
-            document.getElementById("objDoor");
 
-        // KEY
+let available =
 
-        key.style.left = objects.key.left;
-        key.style.top = objects.key.top;
+this.rooms;
 
-        // NOTE
 
-        note.style.left = objects.note.left;
-        note.style.top = objects.note.top;
 
-        // KEYPAD
+if(difficulty==="easy"){
 
-        keypad.style.left = objects.keypad.left;
-        keypad.style.top = objects.keypad.top;
 
-        // DOOR
+available=
 
-        door.style.right = objects.door.right;
-        door.style.top = objects.door.top;
+this.rooms.filter(
 
-    }
+room=>room.difficulty==="easy"
+
+);
+
+
+}
+
+
+
+
+if(difficulty==="hard"){
+
+
+available=
+
+this.rooms.filter(
+
+room=>room.difficulty!=="easy"
+
+);
+
+
+}
+
+
+
+
+let index=
+
+random(
+
+0,
+
+available.length-1
+
+);
+
+
+
+
+this.currentRoom=
+
+available[index];
+
+
+
+
+GameState.room=
+
+this.currentRoom;
+
+
+
+
+this.load();
+
+
+
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// Load Room
+// ==================================
+
+
+load(){
+
+
+
+if(!this.currentRoom)
+
+return;
+
+
+
+
+let image=
+
+document.getElementById(
+"roomImage"
+);
+
+
+
+if(image){
+
+
+image.src=
+
+this.currentRoom.image;
+
+
+}
+
+
+
+
+
+this.placeObjects();
+
+
+
+
+console.log(
+
+"Room:",
+this.currentRoom.name
+
+);
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// Place Objects Randomly
+// ==================================
+
+
+placeObjects(){
+
+
+
+this.objects.forEach(
+
+id=>{
+
+
+let element=
+
+document.getElementById(id);
+
+
+
+if(!element)
+
+return;
+
+
+
+
+let position=
+
+this.randomPosition();
+
+
+
+
+element.style.left=
+
+position.x;
+
+
+
+element.style.top=
+
+position.y;
+
+
+
+element.style.display=
+
+"block";
+
+
+
+}
+
+
+);
+
+
+
+},
+
+
+
+
+
+
+// ==================================
+// Random Position
+// ==================================
+
+
+randomPosition(){
+
+
+
+return{
+
+
+x:
+
+random(
+
+10,
+
+85
+
+)+"%",
+
+
+
+y:
+
+random(
+
+15,
+
+75
+
+)+"%"
+
 
 };
 
-// ===================================
-// Generate Random Room
-// ===================================
 
-window.addEventListener("load", () => {
 
-    RoomGenerator.generate();
+},
 
-});
+
+
+
+
+
+// ==================================
+// Reset Room
+// ==================================
+
+
+reset(){
+
+
+this.currentRoom=null;
+
+
+GameState.room=null;
+
+
+}
+
+
+
+
+};
