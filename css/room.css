@@ -1,0 +1,281 @@
+/* ==========================================
+   ESCAPE ROOM - ROOM STYLES
+========================================== */
+
+#room{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+}
+
+#roomImage{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    user-select:none;
+    pointer-events:none;
+}
+
+/* ==========================================
+   CLICKABLE OBJECTS
+========================================== */
+
+.object{
+    position:absolute;
+    cursor:pointer;
+    transition:0.3s;
+    border-radius:10px;
+}
+
+/* Hover Glow */
+
+.object:hover{
+    transform:scale(1.08);
+    box-shadow:
+        0 0 20px cyan,
+        0 0 40px cyan;
+}
+
+/* ==========================================
+   KEY
+========================================== */
+
+.key{
+    width:40px;
+    height:20px;
+
+    left:18%;
+    top:72%;
+
+    background:gold;
+    border-radius:20px;
+}
+
+/* ==========================================
+   NOTE
+========================================== */
+
+.note{
+
+    width:55px;
+    height:70px;
+
+    left:62%;
+    top:60%;
+
+    background:#f5f5dc;
+
+    border:2px solid #999;
+
+}
+
+/* ==========================================
+   KEYPAD
+========================================== */
+
+.keypad{
+
+    width:70px;
+    height:90px;
+
+    left:82%;
+    top:46%;
+
+    background:#555;
+
+    border:3px solid #999;
+
+}
+
+/* ==========================================
+   EXIT DOOR
+========================================== */
+
+.door{
+
+    width:150px;
+    height:310px;
+
+    right:5%;
+    top:24%;
+
+    background:rgba(0,0,0,.15);
+
+    border:3px solid rgba(255,255,255,.2);
+
+}
+
+/* ==========================================
+   LOCKED EFFECT
+========================================== */
+
+.locked{
+
+    animation:shake .4s;
+}
+
+@keyframes shake{
+
+    0%{transform:translateX(0);}
+    20%{transform:translateX(-6px);}
+    40%{transform:translateX(6px);}
+    60%{transform:translateX(-5px);}
+    80%{transform:translateX(5px);}
+    100%{transform:translateX(0);}
+
+}
+
+/* ==========================================
+   UNLOCK EFFECT
+========================================== */
+
+.unlocked{
+
+    animation:unlock .7s forwards;
+
+}
+
+@keyframes unlock{
+
+    from{
+
+        filter:brightness(1);
+
+    }
+
+    to{
+
+        filter:brightness(1.7);
+
+        transform:scale(1.02);
+
+    }
+
+}
+
+/* ==========================================
+   FOUND ITEM
+========================================== */
+
+.found{
+
+    opacity:.3;
+    pointer-events:none;
+
+}
+
+/* ==========================================
+   ITEM POPUP
+========================================== */
+
+.itemPopup{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    background:#111;
+
+    border:2px solid cyan;
+
+    border-radius:15px;
+
+    padding:20px 35px;
+
+    font-size:28px;
+
+    color:white;
+
+    animation:itemPop .8s;
+
+    z-index:999;
+
+}
+
+@keyframes itemPop{
+
+    0%{
+
+        transform:translate(-50%,-50%) scale(.5);
+
+        opacity:0;
+
+    }
+
+    40%{
+
+        transform:translate(-50%,-50%) scale(1.2);
+
+    }
+
+    100%{
+
+        transform:translate(-50%,-50%) scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================
+   SECRET CLUE
+========================================== */
+
+.secretGlow{
+
+    animation:glow 1.2s infinite;
+
+}
+
+@keyframes glow{
+
+    50%{
+
+        box-shadow:
+        0 0 15px cyan,
+        0 0 35px cyan;
+
+    }
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+    .door{
+
+        width:90px;
+        height:220px;
+
+    }
+
+    .key{
+
+        width:28px;
+
+    }
+
+    .note{
+
+        width:40px;
+        height:55px;
+
+    }
+
+    .keypad{
+
+        width:50px;
+        height:70px;
+
+    }
+
+}
