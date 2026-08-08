@@ -1,147 +1,49 @@
-/* =====================================
-   ESCAPE ROOM - UI.CSS
-===================================== */
+/* ==========================================
+   UI.CSS
+========================================== */
 
-/* Google Font (optional) */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-:root{
-
-    --primary:#00e5ff;
-    --secondary:#00bcd4;
-    --danger:#ff4d4d;
-    --success:#00ff99;
-
-    --dark:#10141d;
-    --panel:rgba(20,20,25,.75);
-
-    --white:#ffffff;
-
-}
-
-body{
-
-    font-family:'Poppins',sans-serif;
-
-}
-
-/* =============================
-      GLASS PANEL
-============================= */
+/* GLASS CARD */
 
 .glass{
 
-    background:var(--panel);
-
-    backdrop-filter:blur(14px);
+    background:rgba(255,255,255,.08);
 
     border:1px solid rgba(255,255,255,.15);
 
+    backdrop-filter:blur(14px);
+
+    -webkit-backdrop-filter:blur(14px);
+
     border-radius:18px;
 
-    box-shadow:0 0 20px rgba(0,0,0,.35);
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
 
 }
 
-/* =============================
-      BUTTONS
-============================= */
 
-.btn{
-
-    padding:15px 28px;
-
-    border:none;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    color:white;
-
-    background:linear-gradient(135deg,var(--secondary),var(--primary));
-
-    transition:.3s;
-
-    font-size:18px;
-
-    font-weight:600;
-
-}
-
-.btn:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:0 0 25px cyan;
-
-}
-
-.btn-danger{
-
-    background:linear-gradient(135deg,#ff5252,#d50000);
-
-}
-
-.btn-success{
-
-    background:linear-gradient(135deg,#00c853,#00e676);
-
-}
-
-/* =============================
-      TITLE
-============================= */
-
-.gameTitle{
-
-    font-size:60px;
-
-    text-align:center;
-
-    text-shadow:0 0 20px cyan;
-
-    letter-spacing:4px;
-
-}
-
-/* =============================
-      MENU CARD
-============================= */
-
-.menuCard{
-
-    width:420px;
-
-    max-width:90%;
-
-    padding:35px;
-
-    margin:auto;
-
-    text-align:center;
-
-}
-
-.menuCard button{
-
-    width:100%;
-
-    margin-top:18px;
-
-}
-
-/* =============================
-      HUD
-============================= */
+/* ==========================================
+   HUD
+========================================== */
 
 #hud{
+
+    position:fixed;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
 
     display:flex;
 
     gap:18px;
 
+    z-index:999;
+
 }
+
 
 .hudBox{
 
@@ -149,37 +51,37 @@ body{
 
     text-align:center;
 
-}
+    padding:14px 18px;
 
-.hudTitle{
+    font-size:18px;
 
-    font-size:13px;
-
-    color:#bbb;
+    color:white;
 
 }
 
-.hudValue{
 
-    font-size:26px;
+.hudBox span{
 
-    margin-top:5px;
+    display:block;
+
+    margin-top:6px;
+
+    font-size:22px;
 
     font-weight:bold;
 
 }
 
-/* =============================
-      MODAL
-============================= */
 
-.modalOverlay{
+/* ==========================================
+   MODAL
+========================================== */
+
+#puzzleModal{
 
     position:fixed;
 
     inset:0;
-
-    background:rgba(0,0,0,.65);
 
     display:flex;
 
@@ -187,126 +89,94 @@ body{
 
     align-items:center;
 
-    z-index:999;
+    background:rgba(0,0,0,.6);
+
+    z-index:1500;
 
 }
 
-.modal{
 
-    width:650px;
+.modalContent{
 
-    max-width:92%;
+    width:420px;
+
+    max-width:90%;
 
     padding:30px;
 
-}
-
-.modal h2{
-
-    margin-bottom:18px;
+    text-align:center;
 
 }
 
-.modalFooter{
 
-    display:flex;
+.modalContent h2{
 
-    justify-content:flex-end;
+    margin-bottom:20px;
 
-    gap:15px;
-
-    margin-top:25px;
+    color:#00e5ff;
 
 }
 
-/* =============================
-      INPUT
-============================= */
 
-input,
-select{
+.modalContent p{
+
+    margin-bottom:20px;
+
+}
+
+
+.modalContent input{
 
     width:100%;
 
-    padding:15px;
+    padding:12px;
 
     border:none;
 
     outline:none;
 
-    border-radius:10px;
+    border-radius:8px;
 
-    background:#1f2630;
-
-    color:white;
-
-    margin-top:12px;
+    margin-bottom:18px;
 
     font-size:16px;
 
 }
 
-/* =============================
-      POPUP MESSAGE
-============================= */
 
-.toast{
+.modalButtons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+}
+
+
+/* ==========================================
+   SETTINGS
+========================================== */
+
+#settingsPanel{
 
     position:fixed;
 
-    top:30px;
+    inset:0;
 
-    right:30px;
+    display:flex;
 
-    padding:18px 25px;
+    justify-content:center;
 
-    border-radius:12px;
+    align-items:center;
 
-    color:white;
+    background:rgba(0,0,0,.55);
 
-    z-index:2000;
-
-    animation:toastIn .4s;
+    z-index:1400;
 
 }
 
-.toast.success{
-
-    background:#00c853;
-
-}
-
-.toast.error{
-
-    background:#d50000;
-
-}
-
-.toast.info{
-
-    background:#0288d1;
-
-}
-
-@keyframes toastIn{
-
-    from{
-
-        transform:translateX(120%);
-
-    }
-
-    to{
-
-        transform:translateX(0);
-
-    }
-
-}
-
-/* =============================
-      SETTINGS PANEL
-============================= */
 
 .settingsRow{
 
@@ -316,148 +186,96 @@ select{
 
     align-items:center;
 
-    margin:18px 0;
-
-}
-
-.settingsLabel{
+    margin:20px 0;
 
     font-size:18px;
 
 }
 
-/* =============================
-      TOGGLE SWITCH
-============================= */
 
-.switch{
+.settingsRow input{
 
-    position:relative;
-
-    width:58px;
-
-    height:30px;
+    transform:scale(1.4);
 
 }
 
-.switch input{
 
-    display:none;
+/* ==========================================
+   WIN SCREEN
+========================================== */
 
-}
+#winScreen{
 
-.slider{
-
-    position:absolute;
+    position:fixed;
 
     inset:0;
 
-    background:#555;
+    display:flex;
 
-    border-radius:30px;
+    justify-content:center;
 
-    cursor:pointer;
+    align-items:center;
 
-    transition:.3s;
+    background:rgba(0,0,0,.75);
 
-}
+    z-index:1600;
 
-.slider::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:24px;
-
-    height:24px;
-
-    left:3px;
-
-    top:3px;
-
-    background:white;
-
-    border-radius:50%;
-
-    transition:.3s;
+    flex-direction:column;
 
 }
 
-input:checked + .slider{
 
-    background:var(--success);
+#winScreen h1{
 
-}
+    font-size:56px;
 
-input:checked + .slider::before{
+    color:#00ff99;
 
-    transform:translateX(28px);
-
-}
-
-/* =============================
-      SCORE BOX
-============================= */
-
-.scoreCard{
-
-    text-align:center;
-
-    padding:30px;
+    margin-bottom:20px;
 
 }
 
-.scoreCard h1{
 
-    font-size:60px;
+#finalScore{
 
-    color:var(--success);
+    font-size:26px;
 
-}
-
-.scoreCard h3{
-
-    margin-top:10px;
-
-    color:#ccc;
+    margin-bottom:30px;
 
 }
 
-/* =============================
-      RESPONSIVE
-============================= */
 
-@media(max-width:768px){
+/* ==========================================
+   GAME OVER
+========================================== */
 
-    .gameTitle{
+#gameOver{
 
-        font-size:40px;
+    position:fixed;
 
-    }
+    inset:0;
 
-    .menuCard{
+    display:flex;
 
-        width:95%;
+    justify-content:center;
 
-    }
+    align-items:center;
 
-    .hudBox{
+    flex-direction:column;
 
-        min-width:80px;
+    background:rgba(0,0,0,.8);
 
-    }
+    z-index:1600;
 
-    .hudValue{
+}
 
-        font-size:18px;
 
-    }
+#gameOver h1{
 
-    .modal{
+    color:#ff4b4b;
 
-        width:95%;
+    font-size:54px;
 
-    }
+    margin-bottom:20px;
 
 }
