@@ -1,9 +1,16 @@
-/* ==========================================
-   ESCAPE ROOM
-   STYLE.CSS
-========================================== */
+/*==================================================
+            ESCAPE ROOM - STYLE.CSS
+==================================================*/
 
-/* RESET */
+/*-------------------------
+    GOOGLE FONT
+-------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&display=swap');
+
+/*-------------------------
+    RESET
+-------------------------*/
 
 *{
     margin:0;
@@ -11,52 +18,53 @@
     box-sizing:border-box;
 }
 
-
-/* VARIABLES */
+/*-------------------------
+    ROOT COLORS
+-------------------------*/
 
 :root{
 
-    --bg:#07111d;
+    --primary:#00E5FF;
+    --secondary:#00FFA6;
+    --danger:#FF4D4D;
+    --warning:#FFD54F;
 
-    --bg2:#0d1d31;
+    --bg:#06111F;
+    --bg2:#0A1B2D;
+    --card:rgba(255,255,255,.08);
 
-    --primary:#00e5ff;
+    --white:#FFFFFF;
+    --text:#E5E5E5;
 
-    --secondary:#00ffaa;
+    --border:rgba(255,255,255,.15);
 
-    --danger:#ff5252;
-
-    --warning:#ffd54f;
-
-    --white:#ffffff;
-
-    --glass:rgba(255,255,255,.08);
-
-    --glassBorder:rgba(255,255,255,.15);
-
-    --shadow:0 15px 40px rgba(0,0,0,.45);
+    --shadow:0 15px 35px rgba(0,0,0,.45);
 
 }
 
-
-/* BODY */
+/*-------------------------
+    BODY
+-------------------------*/
 
 body{
 
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:"Orbitron",sans-serif;
 
-    background:linear-gradient(135deg,var(--bg),var(--bg2));
+    color:var(--white);
 
-    color:white;
+    background:#06111F;
 
     overflow:hidden;
 
     height:100vh;
 
+    user-select:none;
+
 }
 
-
-/* BACKGROUND */
+/*-------------------------
+    BACKGROUND IMAGE
+-------------------------*/
 
 body::before{
 
@@ -66,20 +74,21 @@ body::before{
 
     inset:0;
 
-    background:url("../assets/images/background.jpg");
+    background:url("../assets/images/ui/background.jpeg");
 
     background-size:cover;
 
     background-position:center;
 
-    opacity:.18;
+    opacity:.25;
 
     z-index:-2;
 
 }
 
-
-/* DARK OVERLAY */
+/*-------------------------
+    DARK OVERLAY
+-------------------------*/
 
 body::after{
 
@@ -89,14 +98,18 @@ body::after{
 
     inset:0;
 
-    background:rgba(0,0,0,.35);
+    background:linear-gradient(
+        rgba(0,0,0,.55),
+        rgba(0,0,0,.75)
+    );
 
     z-index:-1;
 
 }
 
-
-/* HIDDEN */
+/*-------------------------
+    HIDDEN
+-------------------------*/
 
 .hidden{
 
@@ -104,25 +117,29 @@ body::after{
 
 }
 
-
-/* GLASS EFFECT */
+/*-------------------------
+    GLASS EFFECT
+-------------------------*/
 
 .glass{
 
-    background:var(--glass);
+    background:rgba(255,255,255,.08);
 
-    border:1px solid var(--glassBorder);
+    border:1px solid rgba(255,255,255,.15);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(15px);
 
-    border-radius:20px;
+    -webkit-backdrop-filter:blur(15px);
+
+    border-radius:18px;
 
     box-shadow:var(--shadow);
 
 }
 
-
-/* LOADING SCREEN */
+/*-------------------------
+    LOADING SCREEN
+-------------------------*/
 
 #loadingScreen{
 
@@ -138,38 +155,73 @@ body::after{
 
     align-items:center;
 
-    gap:25px;
+    background:url("../assets/images/ui/loading.jpeg");
 
-    background:#000;
+    background-size:cover;
+
+    background-position:center;
+
+    gap:25px;
 
     z-index:9999;
 
 }
 
+#loadingScreen::before{
 
-#loadingScreen h1{
+    content:"";
 
-    font-size:60px;
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+}
+
+#loadingScreen>*{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/*-------------------------
+    LOGO
+-------------------------*/
+
+#gameLogo{
+
+    width:170px;
+
+    margin-bottom:10px;
+
+    filter:drop-shadow(0 0 20px cyan);
+
+}
+
+/*-------------------------
+    TITLE
+-------------------------*/
+
+.gameTitle{
+
+    font-size:72px;
+
+    letter-spacing:5px;
 
     color:var(--primary);
 
-    letter-spacing:4px;
-
-    text-shadow:0 0 20px var(--primary);
-
-}
-
-
-#loadingScreen p{
-
-    font-size:22px;
-
-    color:#ddd;
+    text-shadow:
+    0 0 10px var(--primary),
+    0 0 25px var(--primary);
 
 }
 
-
-/* MAIN MENU */
+/*-------------------------
+    MENU
+-------------------------*/
 
 #mainMenu{
 
@@ -185,27 +237,13 @@ body::after{
 
     align-items:center;
 
-    gap:30px;
+    gap:35px;
 
 }
 
-
-/* GAME TITLE */
-
-.gameTitle{
-
-    font-size:64px;
-
-    color:var(--primary);
-
-    text-shadow:0 0 18px var(--primary);
-
-    letter-spacing:5px;
-
-}
-
-
-/* MENU BUTTONS */
+/*-------------------------
+    BUTTON GROUP
+-------------------------*/
 
 .menuButtons{
 
@@ -216,45 +254,52 @@ body::after{
     gap:18px;
 
 }
-
-
-/* BUTTON */
+/*==================================================
+                BUTTONS
+==================================================*/
 
 button{
 
-    padding:15px 40px;
+    width:260px;
+
+    padding:16px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
 
     cursor:pointer;
 
+    font-family:"Orbitron",sans-serif;
+
     font-size:18px;
 
-    font-weight:bold;
-
-    transition:.3s;
+    font-weight:700;
 
     color:white;
 
     background:linear-gradient(
         135deg,
-        var(--primary),
-        #0077ff
+        #00E5FF,
+        #0077FF
     );
 
-}
+    transition:.3s;
 
+    box-shadow:
+    0 0 12px rgba(0,229,255,.35);
+
+}
 
 button:hover{
 
     transform:translateY(-4px);
 
-    box-shadow:0 0 20px var(--primary);
+    box-shadow:
+    0 0 25px #00E5FF,
+    0 0 45px rgba(0,229,255,.6);
 
 }
-
 
 button:active{
 
@@ -262,26 +307,9 @@ button:active{
 
 }
 
-
-/* TITLE */
-
-h1{
-
-    user-select:none;
-
-}
-
-
-/* PARAGRAPH */
-
-p{
-
-    line-height:1.6;
-
-}
-/* ==========================================
-   HUD
-========================================== */
+/*==================================================
+                    HUD
+==================================================*/
 
 #hud{
 
@@ -295,29 +323,25 @@ p{
 
     display:flex;
 
-    gap:20px;
+    gap:18px;
 
-    z-index:100;
+    z-index:1000;
 
 }
-
 
 .hudBox{
 
     min-width:120px;
 
+    padding:14px 20px;
+
     text-align:center;
 
-    padding:12px 20px;
+    color:white;
 
-    font-size:20px;
-
-    font-weight:bold;
-
-    color:var(--white);
+    font-size:18px;
 
 }
-
 
 .hudBox span{
 
@@ -327,12 +351,15 @@ p{
 
     font-size:24px;
 
+    font-weight:bold;
+
+    color:var(--secondary);
+
 }
 
-
-/* ==========================================
-   ROOM
-========================================== */
+/*==================================================
+                ROOM
+==================================================*/
 
 #room{
 
@@ -346,9 +373,6 @@ p{
 
 }
 
-
-/* ROOM IMAGE */
-
 #roomImage{
 
     width:100%;
@@ -357,177 +381,41 @@ p{
 
     object-fit:cover;
 
-    user-select:none;
+    object-position:center;
 
 }
 
-
-/* ==========================================
-   OBJECTS
-========================================== */
-
-#objects{
-
-    position:absolute;
-
-    inset:0;
-
-}
-
-
-/* COMMON OBJECT */
-
-.object{
-
-    position:absolute;
-
-    width:60px;
-
-    height:60px;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-    background-size:contain;
-
-    background-repeat:no-repeat;
-
-    background-position:center;
-
-}
-
-
-/* Hover */
-
-.object:hover{
-
-    transform:scale(1.15);
-
-    filter:drop-shadow(0 0 12px var(--primary));
-
-}
-
-
-/* Found Item */
-
-.itemFound{
-
-    opacity:.25;
-
-    pointer-events:none;
-
-}
-
-
-/* KEY */
-
-.key{
-
-    background-image:url("../assets/icons/key.png");
-
-}
-
-
-/* NOTE */
-
-.note{
-
-    background-image:url("../assets/icons/note.png");
-
-}
-
-
-/* KEYPAD */
-
-.keypad{
-
-    width:80px;
-
-    height:80px;
-
-    background-image:url("../assets/icons/keypad.png");
-
-}
-
-
-/* DOOR */
-
-.door{
-
-    width:120px;
-
-    height:200px;
-
-    background-image:url("../assets/icons/door.png");
-
-}
-
-
-/* ==========================================
-   OBJECT EFFECTS
-========================================== */
-
-.object::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:-5px;
-
-    border-radius:50%;
-
-    background:rgba(0,229,255,.18);
-
-    filter:blur(10px);
-
-    opacity:0;
-
-    transition:.3s;
-
-}
-
-
-.object:hover::after{
-
-    opacity:1;
-
-}
-
-
-/* ==========================================
-   MESSAGE POPUP
-========================================== */
+/*==================================================
+                MESSAGE
+==================================================*/
 
 #message{
 
     position:fixed;
 
-    bottom:35px;
-
     left:50%;
+
+    bottom:40px;
 
     transform:translateX(-50%);
 
-    padding:15px 30px;
+    padding:15px 35px;
 
     border-radius:12px;
 
-    background:rgba(0,0,0,.75);
+    background:rgba(0,0,0,.8);
 
-    color:#fff;
+    color:white;
 
     font-size:18px;
-
-    z-index:500;
 
     opacity:0;
 
     transition:.3s;
 
-}
+    z-index:1200;
 
+}
 
 #message.show{
 
@@ -535,19 +423,81 @@ p{
 
 }
 
+/*==================================================
+                SCORE
+==================================================*/
 
-/* ==========================================
-   SCORE EFFECT
-========================================== */
+#score{
 
-.scoreFlash{
-
-    animation:scoreFlash .4s ease;
+    color:#FFD54F;
 
 }
 
+/*==================================================
+                TIMER
+==================================================*/
 
-@keyframes scoreFlash{
+#timer{
+
+    color:#00FFA6;
+
+}
+
+/*==================================================
+            TIMER WARNING
+==================================================*/
+
+.timerWarning{
+
+    color:#FF4D4D !important;
+
+    animation:timerBlink .8s infinite;
+
+}
+
+@keyframes timerBlink{
+
+    0%{
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        opacity:.35;
+
+    }
+
+    100%{
+
+        opacity:1;
+
+    }
+
+}
+
+/*==================================================
+                HINTS
+==================================================*/
+
+#hints{
+
+    color:#00E5FF;
+
+}
+
+/*==================================================
+            SCORE POP
+==================================================*/
+
+.scorePop{
+
+    animation:scorePop .4s ease;
+
+}
+
+@keyframes scorePop{
 
     0%{
 
@@ -569,36 +519,381 @@ p{
 
 }
 
+/*==================================================
+            RESPONSIVE
+==================================================*/
 
-/* ==========================================
-   TIMER WARNING
-========================================== */
+@media(max-width:900px){
 
-.blink{
+    .gameTitle{
 
-    animation:blink .8s infinite;
-
-}
-
-
-@keyframes blink{
-
-    0%{
-
-        opacity:1;
+        font-size:52px;
 
     }
 
-    50%{
+    button{
 
-        opacity:.25;
+        width:220px;
+
+        font-size:16px;
+
+    }
+
+    #hud{
+
+        gap:10px;
+
+    }
+
+    .hudBox{
+
+        min-width:95px;
+
+        font-size:15px;
+
+    }
+
+}
+/*==================================================
+                WIN SCREEN
+==================================================*/
+
+#winScreen,
+#gameOver{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    background:rgba(0,0,0,.82);
+
+    z-index:5000;
+
+}
+
+#winScreen .modalContent,
+#gameOver .modalContent{
+
+    width:520px;
+
+    max-width:90%;
+
+    padding:45px;
+
+    text-align:center;
+
+}
+
+#winScreen h1{
+
+    font-size:56px;
+
+    color:#00FFA6;
+
+    text-shadow:
+    0 0 15px #00FFA6,
+    0 0 35px #00FFA6;
+
+}
+
+#gameOver h1{
+
+    font-size:56px;
+
+    color:#FF4D4D;
+
+    text-shadow:
+    0 0 15px #FF4D4D,
+    0 0 35px #FF4D4D;
+
+}
+
+#finalScore{
+
+    margin:25px 0;
+
+    font-size:24px;
+
+    color:#FFD54F;
+
+}
+
+.winLogo{
+
+    width:140px;
+
+    margin-bottom:20px;
+
+    filter:drop-shadow(0 0 20px cyan);
+
+}
+
+/*==================================================
+            SCROLLBAR
+==================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#081521;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#00E5FF;
+
+    border-radius:10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#00FFA6;
+
+}
+
+/*==================================================
+            TEXT SELECTION
+==================================================*/
+
+::selection{
+
+    background:#00E5FF;
+
+    color:black;
+
+}
+
+/*==================================================
+            LINKS
+==================================================*/
+
+a{
+
+    color:#00E5FF;
+
+    text-decoration:none;
+
+}
+
+a:hover{
+
+    color:#00FFA6;
+
+}
+
+/*==================================================
+            INPUTS
+==================================================*/
+
+input,
+textarea,
+select{
+
+    font-family:"Orbitron",sans-serif;
+
+    outline:none;
+
+}
+
+/*==================================================
+            IMAGE DEFAULTS
+==================================================*/
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/*==================================================
+            UTILITY CLASSES
+==================================================*/
+
+.center{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.textCenter{
+
+    text-align:center;
+
+}
+
+.mt20{
+
+    margin-top:20px;
+
+}
+
+.mb20{
+
+    margin-bottom:20px;
+
+}
+
+.hidden{
+
+    display:none !important;
+
+}
+
+/*==================================================
+        CYBER GLOW BACKGROUND
+==================================================*/
+
+body::before{
+
+    animation:backgroundPulse 10s infinite alternate;
+
+}
+
+@keyframes backgroundPulse{
+
+    0%{
+
+        filter:brightness(1);
 
     }
 
     100%{
 
-        opacity:1;
+        filter:brightness(1.15);
 
     }
 
 }
+
+/*==================================================
+            FADE HELPERS
+==================================================*/
+
+.fadeIn{
+
+    animation:fadeIn .5s ease forwards;
+
+}
+
+.fadeOut{
+
+    animation:fadeOut .4s ease forwards;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeOut{
+
+    from{
+
+        opacity:1;
+
+    }
+
+    to{
+
+        opacity:0;
+
+    }
+
+}
+
+/*==================================================
+            MOBILE
+==================================================*/
+
+@media(max-width:768px){
+
+    body{
+
+        overflow:auto;
+
+    }
+
+    .gameTitle{
+
+        font-size:42px;
+
+        text-align:center;
+
+    }
+
+    #gameLogo{
+
+        width:120px;
+
+    }
+
+    #loadingScreen h1{
+
+        font-size:36px;
+
+    }
+
+    #winScreen .modalContent,
+    #gameOver .modalContent{
+
+        width:90%;
+
+        padding:25px;
+
+    }
+
+    #winScreen h1,
+    #gameOver h1{
+
+        font-size:36px;
+
+    }
+
+    button{
+
+        width:100%;
+
+    }
+
+}
+
+/*==================================================
+            END OF STYLE.CSS
+==================================================*/
