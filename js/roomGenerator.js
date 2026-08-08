@@ -2,368 +2,254 @@
    ESCAPE ROOM - ROOM GENERATOR
 ========================================== */
 
-
 const RoomGenerator = {
 
+    rooms: [
 
+        {
+            id: 1,
+            name: "Secret Laboratory",
+            image: "assets/images/rooms/Lab.jpeg",
+            difficulty: "easy"
+        },
 
-rooms:[
+        {
+            id: 2,
+            name: "Haunted Library",
+            image: "assets/images/rooms/Library.jpeg",
+            difficulty: "medium"
+        },
 
+        {
+            id: 3,
+            name: "Cyber Bunker",
+            image: "assets/images/rooms/Bunker.jpeg",
+            difficulty: "hard"
+        },
 
-{
-    id:1,
+        {
+            id: 4,
+            name: "Abandoned Office",
+            image: "assets/images/rooms/office.jpeg",
+            difficulty: "medium"
+        }
 
-    name:"Secret Laboratory",
+    ],
 
-    image:
-    "assets/images/rooms/lab.jpg",
+    currentRoom: null,
 
-    difficulty:"easy"
+    objects: [
+        "objKey",
+        "objNote",
+        "objKeypad",
+        "objDoor"
+    ],
 
-},
+    /* ==========================================
+       GENERATE ROOM
+    ========================================== */
 
+    generate() {
 
+        let difficulty = "medium";
 
-{
-    id:2,
+        if (typeof Settings !== "undefined" &&
+            Settings.data &&
+            Settings.data.difficulty) {
 
-    name:"Haunted Library",
+            difficulty = Settings.data.difficulty;
+        }
 
-    image:
-    "assets/images/rooms/library.jpg",
+        let availableRooms = [];
 
-    difficulty:"medium"
+        switch (difficulty) {
 
-},
+            case "easy":
 
+                availableRooms = this.rooms.filter(
+                    room => room.difficulty === "easy"
+                );
 
+                break;
 
-{
-    id:3,
+            case "hard":
 
-    name:"Cyber Bunker",
+                availableRooms = this.rooms.filter(
+                    room => room.difficulty === "hard"
+                );
 
-    image:
-    "assets/images/rooms/bunker.jpg",
+                break;
 
-    difficulty:"hard"
+            default:
 
-}
+                availableRooms = this.rooms;
 
+        }
 
+        if (availableRooms.length === 0) {
 
-],
+            availableRooms = this.rooms;
 
+        }
 
+        const index = Math.floor(
+            Math.random() * availableRooms.length
+        );
 
+        this.currentRoom = availableRooms[index];
 
-currentRoom:null,
+        if (typeof GameState !== "undefined") {
 
+            GameState.room = this.currentRoom;
 
+        }
 
+        this.load();
 
+    },
 
-objects:[
+    /* ==========================================
+       LOAD ROOM
+    ========================================== */
 
-"objKey",
+    load() {
 
-"objNote",
+        if (!this.currentRoom) return;
 
-"objKeypad",
+        const roomImage =
+            document.getElementById("roomImage");
 
-"objDoor"
+        if (roomImage) {
 
-],
+            roomImage.src = this.currentRoom.image;
 
+            roomImage.onerror = function () {
 
+                console.error(
+                    "Room image not found:",
+                    this.src
+                );
 
+            };
 
+        }
 
+        this.placeObjects();
 
-// ==================================
-// Generate Room
-// ==================================
+        console.log(
+            "Room Loaded:",
+            this.currentRoom.name
+        );
 
+    },
 
-generate(){
+    /* ==========================================
+       PLACE OBJECTS
+    ========================================== */
 
+    placeObjects() {
 
+        this.objects.forEach(id => {
 
-let difficulty =
+            const object =
+                document.getElementById(id);
 
-Settings.data.difficulty;
+            if (!object) return;
 
+            const pos = this.randomPosition();
 
+            object.style.left = pos.x;
 
-let available =
+            object.style.top = pos.y;
 
-this.rooms;
+            object.style.display = "block";
 
+            object.classList.remove("itemFound");
 
+        });
 
-if(difficulty==="easy"){
+    },
 
+    /* ==========================================
+       RANDOM POSITION
+    ========================================== */
 
-available=
+    randomPosition() {
 
-this.rooms.filter(
+        return {
 
-room=>room.difficulty==="easy"
+            x:
+                (10 + Math.random() * 75) + "%",
 
-);
+            y:
+                (15 + Math.random() * 60) + "%"
 
+        };
 
-}
+    },
 
+    /* ==========================================
+       NEXT ROOM
+    ========================================== */
 
+    nextRoom() {
 
+        let index = this.rooms.findIndex(
 
-if(difficulty==="hard"){
+            room => room.id === this.currentRoom.id
 
+        );
 
-available=
+        index++;
 
-this.rooms.filter(
+        if (index >= this.rooms.length) {
 
-room=>room.difficulty!=="easy"
+            index = 0;
 
-);
+        }
 
+        this.currentRoom = this.rooms[index];
 
-}
+        if (typeof GameState !== "undefined") {
 
+            GameState.room = this.currentRoom;
 
+        }
 
+        this.load();
 
-let index=
+    },
 
-random(
+    /* ==========================================
+       RELOAD ROOM
+    ========================================== */
 
-0,
+    reload() {
 
-available.length-1
+        this.load();
 
-);
+    },
 
+    /* ==========================================
+       RESET
+    ========================================== */
 
+    reset() {
 
+        this.currentRoom = null;
 
-this.currentRoom=
+        if (typeof GameState !== "undefined") {
 
-available[index];
+            GameState.room = null;
 
+        }
 
-
-
-GameState.room=
-
-this.currentRoom;
-
-
-
-
-this.load();
-
-
-
-
-
-
-},
-
-
-
-
-
-
-// ==================================
-// Load Room
-// ==================================
-
-
-load(){
-
-
-
-if(!this.currentRoom)
-
-return;
-
-
-
-
-let image=
-
-document.getElementById(
-"roomImage"
-);
-
-
-
-if(image){
-
-
-image.src=
-
-this.currentRoom.image;
-
-
-}
-
-
-
-
-
-this.placeObjects();
-
-
-
-
-console.log(
-
-"Room:",
-this.currentRoom.name
-
-);
-
-
-
-},
-
-
-
-
-
-
-// ==================================
-// Place Objects Randomly
-// ==================================
-
-
-placeObjects(){
-
-
-
-this.objects.forEach(
-
-id=>{
-
-
-let element=
-
-document.getElementById(id);
-
-
-
-if(!element)
-
-return;
-
-
-
-
-let position=
-
-this.randomPosition();
-
-
-
-
-element.style.left=
-
-position.x;
-
-
-
-element.style.top=
-
-position.y;
-
-
-
-element.style.display=
-
-"block";
-
-
-
-}
-
-
-);
-
-
-
-},
-
-
-
-
-
-
-// ==================================
-// Random Position
-// ==================================
-
-
-randomPosition(){
-
-
-
-return{
-
-
-x:
-
-random(
-
-10,
-
-85
-
-)+"%",
-
-
-
-y:
-
-random(
-
-15,
-
-75
-
-)+"%"
-
+    }
 
 };
 
+/* ==========================================
+   AUTO EXPORT
+========================================== */
 
-
-},
-
-
-
-
-
-
-// ==================================
-// Reset Room
-// ==================================
-
-
-reset(){
-
-
-this.currentRoom=null;
-
-
-GameState.room=null;
-
-
-}
-
-
-
-
-};
+window.RoomGenerator = RoomGenerator;
