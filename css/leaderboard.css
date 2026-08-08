@@ -1,6 +1,11 @@
 /* ==========================================
-   ESCAPE ROOM - LEADERBOARD.CSS
+   LEADERBOARD.CSS
 ========================================== */
+
+
+/* ===============================
+   SCREEN
+=============================== */
 
 #leaderboardScreen{
 
@@ -14,15 +19,18 @@
 
     align-items:center;
 
-    background:rgba(0,0,0,.85);
+    background:rgba(0,0,0,.75);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(8px);
 
-    z-index:9999;
+    z-index:1800;
 
 }
 
-/* ============================= */
+
+/* ===============================
+   MAIN CARD
+=============================== */
 
 .leaderboard{
 
@@ -30,41 +38,48 @@
 
     max-width:95%;
 
-    background:#161b22;
+    padding:30px;
 
     border-radius:20px;
 
-    border:2px solid rgba(0,229,255,.25);
+    background:rgba(20,20,30,.9);
 
-    box-shadow:0 0 30px rgba(0,229,255,.2);
+    border:1px solid rgba(255,255,255,.15);
 
-    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
 
 }
 
-/* ============================= */
+
+/* ===============================
+   TITLE
+=============================== */
 
 .leaderboardHeader{
 
-    padding:25px;
-
     text-align:center;
 
-    background:#00bcd4;
+    margin-bottom:25px;
 
 }
+
 
 .leaderboardHeader h1{
 
-    color:white;
+    color:#00e5ff;
 
-    font-size:38px;
+    font-size:42px;
 
-    letter-spacing:3px;
+    letter-spacing:2px;
+
+    text-shadow:0 0 15px rgba(0,229,255,.7);
 
 }
 
-/* ============================= */
+
+/* ===============================
+   TABLE
+=============================== */
 
 .leaderboardTable{
 
@@ -74,29 +89,43 @@
 
 }
 
-.leaderboardTable th{
 
-    background:#1f2630;
+.leaderboardTable thead{
 
-    color:#00e5ff;
-
-    padding:18px;
-
-    font-size:18px;
+    background:#00bcd4;
 
 }
 
+
+.leaderboardTable th{
+
+    padding:15px;
+
+    color:white;
+
+    font-size:18px;
+
+    text-transform:uppercase;
+
+}
+
+
 .leaderboardTable td{
 
-    padding:16px;
+    padding:15px;
 
     text-align:center;
 
     border-bottom:1px solid rgba(255,255,255,.08);
 
+    color:#eeeeee;
+
 }
 
-/* ============================= */
+
+/* ===============================
+   ROW EFFECT
+=============================== */
 
 .leaderboardTable tbody tr{
 
@@ -104,67 +133,48 @@
 
 }
 
+
 .leaderboardTable tbody tr:hover{
 
-    background:#202734;
+    background:rgba(0,229,255,.12);
+
+    transform:scale(1.01);
 
 }
 
-/* ============================= */
 
-.rank1{
+/* ===============================
+   TOP 3 COLORS
+=============================== */
 
-    color:gold;
+.leaderboardTable tbody tr:nth-child(1){
+
+    color:#FFD700;
 
     font-weight:bold;
 
 }
 
-.rank2{
+.leaderboardTable tbody tr:nth-child(2){
 
-    color:silver;
-
-    font-weight:bold;
+    color:#C0C0C0;
 
 }
 
-.rank3{
+.leaderboardTable tbody tr:nth-child(3){
 
-    color:#cd7f32;
-
-    font-weight:bold;
+    color:#CD7F32;
 
 }
 
-/* ============================= */
 
-.playerName{
-
-    font-weight:600;
-
-    color:white;
-
-}
-
-.playerScore{
-
-    color:#00ff99;
-
-    font-weight:bold;
-
-}
-
-.playerTime{
-
-    color:#00e5ff;
-
-}
-
-/* ============================= */
+/* ===============================
+   FOOTER
+=============================== */
 
 .leaderboardFooter{
 
-    padding:20px;
+    margin-top:25px;
 
     display:flex;
 
@@ -172,69 +182,34 @@
 
 }
 
-.closeLeaderboard{
 
-    padding:14px 30px;
+.leaderboardFooter button{
 
-    background:#00bcd4;
-
-    color:white;
-
-    border:none;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    transition:.3s;
+    min-width:180px;
 
 }
 
-.closeLeaderboard:hover{
 
-    background:#00e5ff;
+/* ===============================
+   EMPTY MESSAGE
+=============================== */
 
-    box-shadow:0 0 20px cyan;
-
-}
-
-/* ============================= */
-
-.noScores{
-
-    padding:40px;
+.emptyLeaderboard{
 
     text-align:center;
 
-    color:#888;
+    padding:40px;
+
+    color:#cccccc;
 
     font-size:20px;
 
 }
 
-/* ============================= */
 
-.newRecord{
-
-    animation:newRecord 1s infinite;
-
-}
-
-@keyframes newRecord{
-
-    50%{
-
-        color:#00ff99;
-
-        transform:scale(1.08);
-
-    }
-
-}
-
-/* ============================= */
+/* ===============================
+   RESPONSIVE
+=============================== */
 
 @media(max-width:768px){
 
@@ -242,15 +217,18 @@
 
         width:95%;
 
+        padding:20px;
+
     }
 
     .leaderboardHeader h1{
 
-        font-size:28px;
+        font-size:32px;
 
     }
 
     .leaderboardTable th,
+
     .leaderboardTable td{
 
         padding:10px;
