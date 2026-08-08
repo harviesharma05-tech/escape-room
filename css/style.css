@@ -1,123 +1,291 @@
-/* ===============================
-   ESCAPE ROOM - MAIN STYLES
-================================= */
+/* ==========================================
+   ESCAPE ROOM
+   STYLE.CSS
+========================================== */
+
+/* RESET */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
 }
+
+
+/* VARIABLES */
+
+:root{
+
+    --bg:#07111d;
+
+    --bg2:#0d1d31;
+
+    --primary:#00e5ff;
+
+    --secondary:#00ffaa;
+
+    --danger:#ff5252;
+
+    --warning:#ffd54f;
+
+    --white:#ffffff;
+
+    --glass:rgba(255,255,255,.08);
+
+    --glassBorder:rgba(255,255,255,.15);
+
+    --shadow:0 15px 40px rgba(0,0,0,.45);
+
+}
+
+
+/* BODY */
 
 body{
-    background:#0d1117;
-    color:#fff;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:linear-gradient(135deg,var(--bg),var(--bg2));
+
+    color:white;
+
     overflow:hidden;
+
+    height:100vh;
+
 }
 
-/* Hide Elements */
+
+/* BACKGROUND */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:url("../assets/images/background.jpg");
+
+    background-size:cover;
+
+    background-position:center;
+
+    opacity:.18;
+
+    z-index:-2;
+
+}
+
+
+/* DARK OVERLAY */
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.35);
+
+    z-index:-1;
+
+}
+
+
+/* HIDDEN */
 
 .hidden{
+
     display:none !important;
+
 }
 
-/* ===============================
-   LOADING SCREEN
-================================= */
+
+/* GLASS EFFECT */
+
+.glass{
+
+    background:var(--glass);
+
+    border:1px solid var(--glassBorder);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* LOADING SCREEN */
 
 #loadingScreen{
+
     position:fixed;
+
     inset:0;
-    background:#000;
+
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
+
+    gap:25px;
+
+    background:#000;
+
     z-index:9999;
+
 }
+
 
 #loadingScreen h1{
+
     font-size:60px;
-    letter-spacing:5px;
-    color:#00e5ff;
-    margin-bottom:20px;
+
+    color:var(--primary);
+
+    letter-spacing:4px;
+
+    text-shadow:0 0 20px var(--primary);
+
 }
+
 
 #loadingScreen p{
+
     font-size:22px;
-    animation:blink 1s infinite;
-}
 
-@keyframes blink{
-
-    50%{
-        opacity:.2;
-    }
+    color:#ddd;
 
 }
 
-/* ===============================
-   MAIN MENU
-================================= */
+
+/* MAIN MENU */
 
 #mainMenu{
-    width:100vw;
-    height:100vh;
+
+    position:absolute;
+
+    inset:0;
+
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     align-items:center;
 
-    background:url("../assets/images/rooms/menu.jpg");
-    background-size:cover;
-    background-position:center;
+    gap:30px;
+
 }
 
-#mainMenu h1{
-    font-size:72px;
-    margin-bottom:60px;
-    text-shadow:0 0 25px cyan;
+
+/* GAME TITLE */
+
+.gameTitle{
+
+    font-size:64px;
+
+    color:var(--primary);
+
+    text-shadow:0 0 18px var(--primary);
+
+    letter-spacing:5px;
+
 }
 
-/* Buttons */
+
+/* MENU BUTTONS */
+
+.menuButtons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+
+/* BUTTON */
 
 button{
 
-    width:260px;
-    padding:18px;
-
-    margin:12px;
+    padding:15px 40px;
 
     border:none;
+
     border-radius:12px;
 
     cursor:pointer;
 
-    background:#00bcd4;
-    color:white;
+    font-size:18px;
 
-    font-size:20px;
+    font-weight:bold;
 
     transition:.3s;
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        #0077ff
+    );
+
 }
+
 
 button:hover{
 
-    transform:scale(1.05);
+    transform:translateY(-4px);
 
-    background:#00e5ff;
-
-    box-shadow:0 0 25px cyan;
+    box-shadow:0 0 20px var(--primary);
 
 }
 
-/* ===============================
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+
+/* TITLE */
+
+h1{
+
+    user-select:none;
+
+}
+
+
+/* PARAGRAPH */
+
+p{
+
+    line-height:1.6;
+
+}
+/* ==========================================
    HUD
-================================= */
+========================================== */
 
 #hud{
 
-    position:absolute;
+    position:fixed;
 
     top:20px;
 
@@ -133,244 +301,303 @@ button:hover{
 
 }
 
+
 .hudBox{
 
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(10px);
-
-    padding:12px 25px;
-
-    border-radius:12px;
-
-    font-size:22px;
-
-    border:1px solid rgba(255,255,255,.15);
-
-}
-
-/* ===============================
-   INVENTORY
-================================= */
-
-#inventory{
-
-    position:absolute;
-
-    right:20px;
-
-    top:100px;
-
-    width:260px;
-
-    height:500px;
-
-    background:rgba(0,0,0,.45);
-
-    backdrop-filter:blur(10px);
-
-    border-radius:15px;
-
-    padding:20px;
-
-}
-
-#inventory h2{
+    min-width:120px;
 
     text-align:center;
 
-    margin-bottom:20px;
+    padding:12px 20px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:var(--white);
 
 }
 
-#inventoryItems{
 
-    display:grid;
+.hudBox span{
 
-    grid-template-columns:repeat(2,1fr);
+    display:block;
 
-    gap:12px;
+    margin-top:8px;
+
+    font-size:24px;
 
 }
 
-.item{
 
-    background:#222;
+/* ==========================================
+   ROOM
+========================================== */
 
-    border-radius:8px;
+#room{
+
+    position:relative;
+
+    width:100vw;
+
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+
+/* ROOM IMAGE */
+
+#roomImage{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    user-select:none;
+
+}
+
+
+/* ==========================================
+   OBJECTS
+========================================== */
+
+#objects{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+
+/* COMMON OBJECT */
+
+.object{
+
+    position:absolute;
+
+    width:60px;
+
+    height:60px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    background-size:contain;
+
+    background-repeat:no-repeat;
+
+    background-position:center;
+
+}
+
+
+/* Hover */
+
+.object:hover{
+
+    transform:scale(1.15);
+
+    filter:drop-shadow(0 0 12px var(--primary));
+
+}
+
+
+/* Found Item */
+
+.itemFound{
+
+    opacity:.25;
+
+    pointer-events:none;
+
+}
+
+
+/* KEY */
+
+.key{
+
+    background-image:url("../assets/icons/key.png");
+
+}
+
+
+/* NOTE */
+
+.note{
+
+    background-image:url("../assets/icons/note.png");
+
+}
+
+
+/* KEYPAD */
+
+.keypad{
+
+    width:80px;
 
     height:80px;
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:32px;
+    background-image:url("../assets/icons/keypad.png");
 
 }
 
-/* ===============================
-   MODAL
-================================= */
 
-#puzzleModal{
+/* DOOR */
+
+.door{
+
+    width:120px;
+
+    height:200px;
+
+    background-image:url("../assets/icons/door.png");
+
+}
+
+
+/* ==========================================
+   OBJECT EFFECTS
+========================================== */
+
+.object::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-5px;
+
+    border-radius:50%;
+
+    background:rgba(0,229,255,.18);
+
+    filter:blur(10px);
+
+    opacity:0;
+
+    transition:.3s;
+
+}
+
+
+.object:hover::after{
+
+    opacity:1;
+
+}
+
+
+/* ==========================================
+   MESSAGE POPUP
+========================================== */
+
+#message{
 
     position:fixed;
 
-    inset:0;
+    bottom:35px;
 
-    background:rgba(0,0,0,.7);
+    left:50%;
 
-    display:flex;
+    transform:translateX(-50%);
 
-    justify-content:center;
+    padding:15px 30px;
 
-    align-items:center;
+    border-radius:12px;
 
-    z-index:999;
+    background:rgba(0,0,0,.75);
 
-}
+    color:#fff;
 
-.modalContent{
+    font-size:18px;
 
-    width:700px;
+    z-index:500;
 
-    max-width:90%;
+    opacity:0;
 
-    background:#161b22;
-
-    border-radius:15px;
-
-    padding:30px;
-
-    animation:popup .35s;
+    transition:.3s;
 
 }
 
-.modalContent h2{
 
-    margin-bottom:20px;
+#message.show{
 
-}
-
-#puzzleBody{
-
-    min-height:180px;
-
-    margin-bottom:20px;
+    opacity:1;
 
 }
 
-/* ===============================
-   WIN / GAME OVER
-================================= */
 
-#winScreen,
-#gameOver{
+/* ==========================================
+   SCORE EFFECT
+========================================== */
 
-    position:fixed;
+.scoreFlash{
 
-    inset:0;
-
-    background:#000;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
+    animation:scoreFlash .4s ease;
 
 }
 
-#winScreen h1{
 
-    color:#00ff99;
+@keyframes scoreFlash{
 
-    font-size:60px;
+    0%{
 
-    margin-bottom:20px;
-
-}
-
-#gameOver h1{
-
-    color:red;
-
-    font-size:60px;
-
-    margin-bottom:20px;
-
-}
-
-#finalScore{
-
-    font-size:26px;
-
-    margin-bottom:25px;
-
-}
-
-/* ===============================
-   ANIMATION
-================================= */
-
-@keyframes popup{
-
-    from{
-
-        transform:scale(.7);
-
-        opacity:0;
+        transform:scale(1);
 
     }
 
-    to{
+    50%{
+
+        transform:scale(1.25);
+
+    }
+
+    100%{
 
         transform:scale(1);
+
+    }
+
+}
+
+
+/* ==========================================
+   TIMER WARNING
+========================================== */
+
+.blink{
+
+    animation:blink .8s infinite;
+
+}
+
+
+@keyframes blink{
+
+    0%{
 
         opacity:1;
 
     }
 
-}
+    50%{
 
-/* ===============================
-   MOBILE
-================================= */
-
-@media(max-width:768px){
-
-    #mainMenu h1{
-
-        font-size:42px;
+        opacity:.25;
 
     }
 
-    button{
+    100%{
 
-        width:220px;
-
-        font-size:18px;
-
-    }
-
-    #inventory{
-
-        width:200px;
-
-        height:350px;
-
-    }
-
-    .hudBox{
-
-        font-size:18px;
-
-        padding:10px 16px;
+        opacity:1;
 
     }
 
