@@ -1,52 +1,56 @@
 /* ==========================================
-   ESCAPE ROOM - INVENTORY.CSS
+   INVENTORY.CSS
 ========================================== */
+
+/* INVENTORY PANEL */
 
 #inventory{
 
-    position:absolute;
+    position:fixed;
 
-    top:90px;
+    top:100px;
 
     right:20px;
 
-    width:290px;
+    width:260px;
 
-    height:600px;
-
-    background:rgba(20,20,25,.85);
-
-    backdrop-filter:blur(12px);
-
-    border-radius:18px;
-
-    border:2px solid rgba(0,229,255,.25);
+    height:420px;
 
     padding:20px;
 
-    overflow:hidden;
+    border-radius:20px;
 
-    box-shadow:0 0 25px rgba(0,229,255,.15);
+    background:rgba(20,25,35,.85);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.45);
+
+    z-index:900;
 
 }
 
-/* ============================= */
+
+/* TITLE */
 
 .inventoryTitle{
 
     text-align:center;
 
-    font-size:26px;
-
-    margin-bottom:20px;
-
-    letter-spacing:2px;
+    font-size:24px;
 
     color:#00e5ff;
 
+    margin-bottom:20px;
+
+    letter-spacing:1px;
+
 }
 
-/* ============================= */
+
+/* ITEM CONTAINER */
 
 #inventoryItems{
 
@@ -58,309 +62,196 @@
 
     overflow-y:auto;
 
-    max-height:480px;
+    max-height:320px;
 
     padding-right:5px;
 
 }
 
-/* Scrollbar */
+
+/* SCROLLBAR */
 
 #inventoryItems::-webkit-scrollbar{
 
-    width:8px;
+    width:6px;
 
 }
 
 #inventoryItems::-webkit-scrollbar-thumb{
 
-    background:#00bcd4;
+    background:#00e5ff;
 
     border-radius:10px;
 
 }
 
-/* ============================= */
+
+/* ITEM SLOT */
 
 .item{
 
-    width:110px;
+    width:100px;
 
-    height:110px;
+    height:100px;
 
-    background:#161b22;
+    border-radius:16px;
 
-    border-radius:14px;
+    background:rgba(255,255,255,.08);
 
-    border:2px solid transparent;
+    border:2px solid rgba(255,255,255,.12);
 
     display:flex;
+
+    flex-direction:column;
 
     justify-content:center;
 
     align-items:center;
-
-    font-size:45px;
 
     cursor:pointer;
 
     transition:.25s;
 
-    position:relative;
+}
+
+
+/* ITEM ICON */
+
+.item span{
+
+    font-size:42px;
 
 }
 
-.item:hover{
 
-    transform:scale(1.08);
-
-    border-color:#00e5ff;
-
-    box-shadow:0 0 18px cyan;
-
-}
-
-/* ============================= */
-
-.item.selected{
-
-    border-color:#00ff99;
-
-    box-shadow:0 0 25px #00ff99;
-
-}
-
-/* ============================= */
+/* ITEM NAME */
 
 .itemName{
 
-    position:absolute;
+    margin-top:8px;
 
-    bottom:-26px;
+    font-size:13px;
 
-    left:50%;
-
-    transform:translateX(-50%);
-
-    font-size:12px;
-
-    white-space:nowrap;
-
-    color:#ddd;
+    text-align:center;
 
 }
 
-/* ============================= */
 
-.itemCount{
+/* HOVER */
 
-    position:absolute;
+.item:hover{
 
-    top:6px;
+    transform:translateY(-5px) scale(1.05);
 
-    right:8px;
+    border-color:#00e5ff;
 
-    background:#ff5252;
-
-    color:white;
-
-    width:22px;
-
-    height:22px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-size:12px;
-
-    font-weight:bold;
+    box-shadow:0 0 18px rgba(0,229,255,.6);
 
 }
 
-/* ============================= */
 
-.itemLocked{
+/* SELECTED ITEM */
 
-    filter:grayscale(100%);
+.item.selected{
 
-    opacity:.35;
+    border-color:#00ffaa;
 
-}
-
-/* ============================= */
-
-.itemNew{
-
-    animation:newItem .7s;
+    box-shadow:0 0 25px rgba(0,255,170,.8);
 
 }
 
-@keyframes newItem{
 
-    0%{
-
-        transform:scale(.4);
-
-        opacity:0;
-
-    }
-
-    60%{
-
-        transform:scale(1.15);
-
-    }
-
-    100%{
-
-        transform:scale(1);
-
-        opacity:1;
-
-    }
-
-}
-
-/* ============================= */
-
-.itemGlow{
-
-    animation:itemGlow 1.2s infinite;
-
-}
-
-@keyframes itemGlow{
-
-    50%{
-
-        box-shadow:
-
-        0 0 12px cyan,
-
-        0 0 28px cyan;
-
-    }
-
-}
-
-/* ============================= */
-
-.inventoryFooter{
-
-    position:absolute;
-
-    bottom:18px;
-
-    left:20px;
-
-    right:20px;
-
-}
-
-/* Use Button */
-
-.useItemBtn{
-
-    width:100%;
-
-    padding:14px;
-
-    background:#00bcd4;
-
-    color:white;
-
-    border:none;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    transition:.3s;
-
-}
-
-.useItemBtn:hover{
-
-    background:#00e5ff;
-
-    box-shadow:0 0 20px cyan;
-
-}
-
-/* Drop Button */
-
-.dropItemBtn{
-
-    width:100%;
-
-    margin-top:10px;
-
-    padding:14px;
-
-    background:#ff5252;
-
-    color:white;
-
-    border:none;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.dropItemBtn:hover{
-
-    background:#ff1744;
-
-}
-
-/* ============================= */
+/* EMPTY INVENTORY */
 
 .inventoryEmpty{
 
+    grid-column:1 / -1;
+
     display:flex;
 
     justify-content:center;
 
     align-items:center;
 
-    height:100%;
+    height:250px;
 
-    color:#888;
+    color:#bbb;
 
     font-size:18px;
 
+    text-align:center;
+
 }
 
-/* ============================= */
+
+/* ITEM POP ANIMATION */
+
+.item{
+
+    animation:itemAppear .35s ease;
+
+}
+
+@keyframes itemAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.6);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+
+/* MOBILE */
 
 @media(max-width:768px){
 
     #inventory{
 
-        width:210px;
+        width:100%;
 
-        height:420px;
+        height:140px;
+
+        left:0;
+
+        right:0;
+
+        bottom:0;
+
+        top:auto;
+
+        border-radius:20px 20px 0 0;
+
+    }
+
+    #inventoryItems{
+
+        display:flex;
+
+        overflow-x:auto;
+
+        overflow-y:hidden;
+
+        max-height:none;
 
     }
 
     .item{
 
-        width:80px;
+        min-width:90px;
 
-        height:80px;
-
-        font-size:34px;
+        height:90px;
 
     }
 
