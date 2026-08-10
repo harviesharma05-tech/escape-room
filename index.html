@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Escape Room</title>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/room.css">
+
+    <link rel="stylesheet" href="css/inventory.css">
+
+    <link rel="stylesheet" href="css/leaderboard.css">
+
+    <link rel="stylesheet" href="css/animations.css">
+
+    <link rel="stylesheet" href="css/ui.css">
+
+    <link rel="stylesheet" href="css/features.css">
+
+</head>
+
+<body>
+
+<!-- =====================================
+     CONFETTI OVERLAY
+===================================== -->
+
+<canvas id="confettiCanvas"></canvas>
+
+<!-- =====================================
+     LOADING SCREEN
+===================================== -->
+
+<div id="loadingScreen">
+
+    <img
+        src="assets/images/ui/loading.jpeg"
+        class="loadingImage"
+        alt="Loading">
+
+    <h1>
+
+        ESCAPE ROOM
+
+    </h1>
+
+    <p>
+
+        Loading...
+
+    </p>
+
+</div>
+
+<!-- =====================================
+     MAIN MENU
+===================================== -->
+
+<div id="mainMenu" class="hidden">
+
+    <img
+        src="assets/images/ui/logo.jpeg"
+        class="menuLogo"
+        alt="Logo">
+
+    <h1 class="gameTitle">
+
+        ESCAPE ROOM
+
+    </h1>
+
+    <div class="menuButtons">
+
+        <button id="startBtn">
+
+            🎮 New Game
+
+        </button>
+
+        <button id="continueBtn">
+
+            ▶ Continue
+
+        </button>
+
+        <button id="leaderboardBtn">
+
+            🏆 Leaderboard
+
+        </button>
+
+        <button id="settingsBtn">
+
+            ⚙ Settings
+
+        </button>
+
+        <button id="achievementsBtn">
+
+            🏅 Achievements
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     GAME SCREEN
+===================================== -->
+
+<div id="gameScreen" class="hidden">
+
+    <!-- =====================================
+         HUD
+    ===================================== -->
+
+    <div id="hud">
+
+        <div class="hudBox glass">
+
+            ⏱ Time
+
+            <span id="timeValue">
+
+                05:00
+
+            </span>
+
+        </div>
+
+        <div class="hudBox glass">
+
+            ⭐ Score
+
+            <span id="scoreValue">
+
+                0
+
+            </span>
+
+        </div>
+
+        <div class="hudBox glass">
+
+            💡 Hints
+
+            <span id="hintValue">
+
+                3
+
+            </span>
+
+        </div>
+
+        <div class="hudBox glass">
+
+            🚪 Room
+
+            <span id="roomValue">
+
+                1 / 4
+
+            </span>
+
+        </div>
+
+        <div class="hudBox glass">
+
+            ⭐ Level
+
+            <span id="levelValue">
+
+                Lv.1
+
+            </span>
+
+        </div>
+
+        <div class="hudBox glass">
+
+            🔋 Battery
+
+            <span id="batteryValue">
+
+                100%
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================
+         XP BAR
+    ===================================== -->
+
+    <div class="xpContainer">
+
+        <div id="xpBar"></div>
+
+    </div>
+        <!-- =====================================
+         MISSION PANEL
+    ====================================== -->
+
+    <div id="missionPanel" class="glass">
+
+        <h3>
+
+            🎯 Current Mission
+
+        </h3>
+
+        <p id="missionText">
+
+            Find the hidden key and escape.
+
+        </p>
+
+        <button id="hintBtn">
+
+            💡 Use Hint
+
+        </button>
+
+    </div>
+
+    <!-- =====================================
+         ROOM
+    ====================================== -->
+
+    <div id="room" class="roomContainer">
+
+        <img
+
+            id="roomImage"
+
+            src="assets/images/rooms/Lab.jpeg"
+
+            alt="Escape Room">
+
+        <!-- ==========================
+             INTERACTIVE OBJECTS
+        =========================== -->
+
+        <img
+
+            id="objKey"
+
+            class="object"
+
+            src="assets/images/objects/key.jpeg"
+
+            alt="Key">
+
+        <img
+
+            id="objNote"
+
+            class="object"
+
+            src="assets/images/objects/note.jpeg"
+
+            alt="Note">
+
+        <img
+
+            id="objKeypad"
+
+            class="object"
+
+            src="assets/images/objects/keypad.jpeg"
+
+            alt="Keypad">
+
+        <img
+
+            id="objDoor"
+
+            class="object"
+
+            src="assets/images/objects/Door.jpeg"
+
+            alt="Door">
+
+    </div>
+
+    <!-- =====================================
+         INVENTORY
+    ====================================== -->
+
+    <div id="inventory" class="glass">
+
+        <h2 class="inventoryTitle">
+
+            🎒 Inventory
+
+        </h2>
+
+        <div id="inventoryItems">
+
+            <div class="inventoryEmpty">
+
+                Empty
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     PUZZLE MODAL
+===================================== -->
+
+<div id="puzzleModal" class="modal hidden">
+
+    <div class="modalContent glass">
+
+        <h2 id="puzzleTitle">
+
+            Puzzle
+
+        </h2>
+
+        <div id="puzzleBody">
+
+        </div>
+
+        <div class="modalButtons">
+
+            <button id="submitPuzzle">
+
+                ✅ Submit
+
+            </button>
+
+            <button id="closePuzzle">
+
+                ❌ Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     SETTINGS PANEL
+===================================== -->
+
+<div id="settingsPanel" class="modal hidden">
+
+    <div class="modalContent glass">
+
+        <h2>
+
+            ⚙ Settings
+
+        </h2>
+
+        <div class="setting">
+
+            <label for="difficulty">
+
+                Difficulty
+
+            </label>
+
+            <select id="difficulty">
+
+                <option value="easy">Easy</option>
+
+                <option value="medium" selected>Medium</option>
+
+                <option value="hard">Hard</option>
+
+            </select>
+
+        </div>
+
+        <div class="setting">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="musicToggle"
+                    checked>
+
+                Music
+
+            </label>
+
+        </div>
+
+        <div class="setting">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="soundToggle"
+                    checked>
+
+                Sound Effects
+
+            </label>
+
+        </div>
+
+        <div class="setting">
+
+            <label for="volumeSlider">
+
+                Volume
+
+            </label>
+
+            <input
+                type="range"
+                id="volumeSlider"
+                min="0"
+                max="100"
+                value="100">
+
+        </div>
+
+        <div class="modalButtons">
+
+            <button id="saveSettings">
+
+                💾 Save
+
+            </button>
+
+            <button id="resetSettings">
+
+                🔄 Reset
+
+            </button>
+
+            <button id="closeSettings">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- =====================================
+     ACHIEVEMENTS PANEL
+===================================== -->
+
+<div id="achievementsPanel" class="modal hidden">
+
+    <div class="modalContent glass">
+
+        <h2>
+
+            🏅 Achievements
+
+        </h2>
+
+        <div id="achievementsBody" class="achievementsBody">
+
+        </div>
+
+        <div class="modalButtons">
+
+            <button id="closeAchievements">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     LEADERBOARD
+===================================== -->
+
+<div id="leaderboardScreen" class="modal hidden">
+
+    <div class="leaderboard glass">
+
+        <h1>
+
+            🏆 Leaderboard
+
+        </h1>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Rank</th>
+
+                    <th>Player</th>
+
+                    <th>Score</th>
+
+                    <th>Time</th>
+
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="leaderboardBody">
+
+            </tbody>
+
+        </table>
+
+        <br>
+
+        <button id="closeLeaderboard">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     WIN SCREEN
+===================================== -->
+
+<div id="winScreen" class="hidden">
+
+    <img
+        src="assets/images/ui/logo.jpeg"
+        class="menuLogo"
+        alt="Winner">
+
+    <h1>
+
+        🎉 YOU ESCAPED!
+
+    </h1>
+
+    <p id="finalScore">
+
+        Final Score : 0
+
+    </p>
+
+    <button id="playAgain">
+
+        🔄 Play Again
+
+    </button>
+
+    <button id="shareResultBtn">
+
+        📤 Share Result
+
+    </button>
+
+</div>
+
+<!-- =====================================
+     SHARE RESULT MODAL
+===================================== -->
+
+<div id="shareModal" class="modal hidden">
+
+    <div class="modalContent glass shareModalContent">
+
+        <h2>
+
+            📤 Share Your Escape
+
+        </h2>
+
+        <img id="shareCardImage" class="shareCardImage" alt="Your result card">
+
+        <div class="modalButtons">
+
+            <button id="downloadShareCard">
+
+                ⬇ Download Image
+
+            </button>
+
+            <button id="nativeShareCard">
+
+                📲 Share
+
+            </button>
+
+            <button id="closeShareModal">
+
+                Close
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+     LOSE SCREEN
+===================================== -->
+
+<div id="loseScreen" class="hidden">
+
+    <h1>
+
+        ⏰ TIME'S UP!
+
+    </h1>
+
+    <p>
+
+        Better luck next time.
+
+    </p>
+
+    <button id="restart">
+
+        🔄 Restart
+
+    </button>
+
+</div>
+
+<!-- =====================================
+     MESSAGE BOX
+===================================== -->
+
+<div id="messageBox" class="hidden">
+
+    <span id="messageText"></span>
+
+</div>
+
+<!-- =====================================
+     TRANSITION SCREEN
+===================================== -->
+
+<div id="transitionScreen" class="hidden">
+
+    <img
+        src="assets/images/ui/loading.jpeg"
+        class="loadingImage"
+        alt="Loading">
+
+    <h2>
+
+        Loading Next Room...
+
+    </h2>
+
+</div>
+
+<!-- =====================================
+     JAVASCRIPT FILES
+===================================== -->
+
+<!-- Utilities -->
+<script src="js/utils.js"></script>
+
+<!-- Core -->
+<script src="js/gameState.js"></script>
+<script src="js/player.js"></script>
+<script src="js/settings.js"></script>
+
+<!-- Systems -->
+<script src="js/audio.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/inventory.js"></script>
+<script src="js/leaderboard.js"></script>
+<script src="js/saveManager.js"></script>
+<script src="js/achievements.js"></script>
+<script src="js/confetti.js"></script>
+<script src="js/shareCard.js"></script>
+
+<!-- UI -->
+<script src="js/hud.js"></script>
+<script src="js/ui.js"></script>
+
+<!-- Gameplay -->
+<script src="js/roomGenerator.js"></script>
+<script src="js/puzzleManager.js"></script>
+<script src="js/game.js"></script>
+
+<!-- App (Keep Last) -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
