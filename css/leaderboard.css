@@ -1,0 +1,240 @@
+/* ==========================================
+   LEADERBOARD.CSS
+========================================== */
+
+
+/* ===============================
+   SCREEN
+=============================== */
+
+#leaderboardScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(8px);
+
+    z-index:1800;
+
+}
+
+
+/* ===============================
+   MAIN CARD
+=============================== */
+
+.leaderboard{
+
+    width:750px;
+
+    max-width:95%;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    background:rgba(20,20,30,.9);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
+
+}
+
+
+/* ===============================
+   TITLE
+=============================== */
+
+.leaderboardHeader{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+
+.leaderboardHeader h1{
+
+    color:#00e5ff;
+
+    font-size:42px;
+
+    letter-spacing:2px;
+
+    text-shadow:0 0 15px rgba(0,229,255,.7);
+
+}
+
+
+/* ===============================
+   TABLE
+=============================== */
+
+.leaderboardTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+.leaderboardTable thead{
+
+    background:#00bcd4;
+
+}
+
+
+.leaderboardTable th{
+
+    padding:15px;
+
+    color:white;
+
+    font-size:18px;
+
+    text-transform:uppercase;
+
+}
+
+
+.leaderboardTable td{
+
+    padding:15px;
+
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    color:#eeeeee;
+
+}
+
+
+/* ===============================
+   ROW EFFECT
+=============================== */
+
+.leaderboardTable tbody tr{
+
+    transition:.25s;
+
+}
+
+
+.leaderboardTable tbody tr:hover{
+
+    background:rgba(0,229,255,.12);
+
+    transform:scale(1.01);
+
+}
+
+
+/* ===============================
+   TOP 3 COLORS
+=============================== */
+
+.leaderboardTable tbody tr:nth-child(1){
+
+    color:#FFD700;
+
+    font-weight:bold;
+
+}
+
+.leaderboardTable tbody tr:nth-child(2){
+
+    color:#C0C0C0;
+
+}
+
+.leaderboardTable tbody tr:nth-child(3){
+
+    color:#CD7F32;
+
+}
+
+
+/* ===============================
+   FOOTER
+=============================== */
+
+.leaderboardFooter{
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+
+.leaderboardFooter button{
+
+    min-width:180px;
+
+}
+
+
+/* ===============================
+   EMPTY MESSAGE
+=============================== */
+
+.emptyLeaderboard{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#cccccc;
+
+    font-size:20px;
+
+}
+
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+
+@media(max-width:768px){
+
+    .leaderboard{
+
+        width:95%;
+
+        padding:20px;
+
+    }
+
+    .leaderboardHeader h1{
+
+        font-size:32px;
+
+    }
+
+    .leaderboardTable th,
+
+    .leaderboardTable td{
+
+        padding:10px;
+
+        font-size:14px;
+
+    }
+
+}
